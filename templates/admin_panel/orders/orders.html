@@ -1,0 +1,170 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Order List</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">All Orders </li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto col-sm-2 float-right ml-auto">
+                                <form method="get" action="{% url 'orders:orders' %}">
+                                    <li class="list-inline-item">
+                                        <div class="input-group">
+                
+                                            <input name="q" type="text" placeholder="Search" value="{{ filter_data.q }}"
+                                                class="form-control" />
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-soft-primary btn-sm"><i
+                                                        class="fas fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </form>
+                            </div>
+                            <div class="col-auto align-self-center">
+                                <a title="Filter" data-toggle="modal" data-target="#modal_aside_right" href="javascript:void(0)" class=" btn btn-sm btn-primary"><i class="mdi mdi-filter mr-2"></i>Filter</a>
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Billing Address</th>
+                                    <th>Time</th>
+                                    <th>Order Status</th>
+                                    <th class="action">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% load el_pagination_tags %}
+                                {% paginate 20 instances %}
+                                {% for instance in instances %}
+                                <tr>
+                                    <td>
+                                        <p class="d-inline-block align-middle mb-0">
+                                            <a href="{% url 'orders:order_item' pk=instance.pk %}" class="d-inline-block align-middle mb-0 product-name">{{instance.order.order_id}}</a> 
+                                        </p>
+                                    </td>
+                                    <td>{{instance.order.customer}}</td>
+                                    <th>{{instance.order.billing_name}},{{instance.order.billing_address}},{{instance.order.billing_pincode}}</th>
+                                    <td>{{instance.order.time}}</td>
+                                    {% if instance.order_status == 'pending' %}
+                                        <td class="text-warning">{{instance.get_order_status_display}}</td>
+                                    {% elif instance.order_status == 'shipped' %}
+                                        <td class="text-primary">{{instance.get_order_status_display}}</td>
+                                    {% elif instance.order_status == 'delivered' %}
+                                        <td class="text-success">{{instance.get_order_status_display}}</td>
+                                    {% else %}
+                                        <td class="text-danger">{{instance.get_order_status_display}}</td>
+                                    {% endif %}
+                                    
+                                    
+                                    <td class="action">                                                       
+                                        <a href="{% url 'orders:order_item' pk=instance.pk %}" class="mr-2"><i class="las la-eye text-info font-18"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% comment %} {% show_pages %} {% endcomment %}
+    
+                                </tbody>
+                            </table> 
+                            
+                            {% get_pages %}
+                            <div class="clearfix"></div>
+                            <div class="row pagi my-3">
+                                <div class="col-sm-6 col-xs-6 text-left my-pagina">{% show_pages %}</div>
+                                <div class="col-sm-6 col-xs-6 text-right tot my-pagination align-items-center">
+                                    <div class="m-t-10">
+                                        Showing {{title}}
+                                        <span class="current_page_index">{{ pages.current_start_index }}</span> - <span
+                                            class="current_end_status">{{ pages.current_end_index }}</span> of <span
+                                            class="total_count">{{ pages.total_count }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div>
+            
+
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+
+    <!-- modals  -->
+        <!-- filter modal -->
+        <div id="modal_aside_right" class="modal fixed-left fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-aside" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Filter</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                        <div class="modal-body">
+                            <div class="form-group fg-line">
+                                <label class="bmd-label-floating">Order Status</label>
+                                <!-- <input name="category" type="text" class="form-control" /> -->
+                                <select class="select order-select-query form-control">
+                                    <option {% if filter_query == "all" %}selected {% endif %}value="all">---All----</option>
+                                    <option {% if filter_query == "pending" %}selected {% endif %}value="pending">Pending Orders</option>
+                                    <option {% if filter_query == "shipped" %}selected {% endif %}value="shipped">Shipped Orders</option>
+                                    <option {% if filter_query == "delivered" %}selected {% endif %}value="delivered">Completed Orders</option>
+                                    <option {% if filter_query == "cancelled" %}selected {% endif %}value="cancelled">Cancelled Orders</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button"  class="btn btn-sm btn-primary order-filter-button" data-url="{% url 'orders:orders' %}">Submit</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+    <!-- end modals -->
+{% endblock content %}
+{% block static %}
+<script>
+
+    //filter order by status
+
+    $(".order-filter-button").click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        var filter_query = $('.order-select-query').val();
+        console.log(filter_query);
+        window.location.replace(url + "?filter_query=" + filter_query);
+    
+    });
+
+</script>
+{% endblock %}

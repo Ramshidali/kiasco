@@ -1,0 +1,26 @@
+{%load static%}
+
+<!-- ajax  -->
+
+<!-- script -->
+<script>
+    function IsEmail(email) {
+        console.log("haaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test(email)) {
+            console.log("false");
+           return false;
+        }else{ 
+            console.log("true");
+           return true;
+        }
+      }
+</script>
+<script src="{% static 'web/js/jquery-min.js' %}"></script>
+<script src="{% static 'web/js/slick.min.js' %}"></script>
+<script src="{% static 'web/js/wow.min.js' %}"></script>
+<script src="{% static 'web/js/script.js' %}"></script>
+<script src="{% static 'web/js/add-js.js' %}"></script>
+
+<script src="{% static 'admin_panel/assets/sweet/actions.js' %}"></script>
+<script src="{% static 'admin_panel/assets/sweet/sweetalert2.js' %}"></script>

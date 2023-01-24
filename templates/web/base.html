@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if is_product_single %}
+      <meta property="og:title" content="{{ instance.name }}" />
+      <meta property="og:description" content="{{ instance.short_description }}">
+      <meta property="og:image" content="https://kiasco.com{{ featured_image }}">
+      <meta property="og:image:width" content="300">
+      <meta property="og:image:height" content="300">
+      <meta property="og:url" content="kiasco.com">
+    {% endif %}
+    <title>Kiasco - {{page_name}}</title>
+    {% load static %}
+    <!-- link-style-sheet -->
+    <link rel="stylesheet" href="{% static 'web/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/all.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/slick-theme.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/slick.css' %}" />
+  
+    <link href="{% static 'admin_panel/assets/sweet/sweetalert2.css' %}" rel="stylesheet" type="text/css" />  
+  
+    <link rel="stylesheet" href="{% static 'web/css/intlTelInput.css' %}" />
+    <!-- link-icon -->
+    <link rel="shortcut icon"href="{% static 'web/images/Kiasco Logo 2.svg' %}" type="image/x-icon"/>
+    
+  </head>
+  <body>
+    
+    <!-- navbar -->
+    {% include 'web/includes/side_bar/customersidebar.html'%}
+    <!-- end navbar--> 
+    
+    {% block content %}
+
+    {% endblock  %} 
+
+    <!-- footer -->
+    {% include 'web/includes/footer/customerfooter.html'%}
+    <!-- end footer --> 
+
+    {% include 'web/includes/js.html'%}
+
+  </body>
+  </html>

@@ -1,0 +1,99 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+  <section id="address">
+    <div class="wrapper">
+      <div class="address-container">
+        <div class="address-head">
+          <h4>select delivery address</h4>
+        </div>
+        <div class="full-box">
+          <ul class="address-box">
+
+            {% for address in address_instance %}
+            <li>
+              <div class="select">
+                <input type="radio" name="radAnswer" onclick="default_address('address'+'{{address.pk}}'+'radio')" id="address{{address.pk}}radio" data-pk="{{address.pk}}" required />
+              </div>
+              <div class="text-box">
+                <h5>{{address.name}}</h5>
+                <p>
+                  {{address.address}},{{address.locality}},
+                  Pin : {{address.pincode}},{{address.city}},{{address.state}}
+                </p>
+                <span>mobile : {{address.phone}}</span>
+              </div>
+              {% comment %} <div class="edit-box">
+                {% comment %} <a href="" class="button">edit</a> {% endcomment %}
+              {% comment %} </div> {% endcomment %}
+            </li>
+            {% endfor %}
+
+            <li class="add-more" id="addAddress">
+              <a href="#">
+                <span><i class="fas fa-plus"></i></span>
+                <small>add new address</small>
+              </a>
+            </li>
+          </ul>
+          <div class="bill-box">
+            <div class="content-box">
+              <div class="pay-box">
+                <h3>total price Detials ( <span>{{cart_count}} items</span> )</h3>
+                <ul>
+                  <li>
+                    <span>total MRP</span>
+                    <small>₹ {{total_mrp}}</small>
+                  </li>
+                  
+                  <li>
+                    <span class="red">Shipping Charge</span>
+                    <small>₹ {{delivery_charge}}</small>
+                  </li>
+                </ul>
+              </div>
+              <hr />
+              <div class="amount-box">
+                <div class="price">
+                  <h5>total amount</h5>
+                  <small>₹ {{total_price}}</small>
+                </div>
+                <a href="javascript:void(0)" class="button" data-address_pk="" data-url="{% url 'web:add_default_address' %}" id="cart_address_btn">place order</a>
+
+                <p id="cart_address_warning">*Select Address</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <div class="add-address">
+    <div class="adding-page">
+      <div class="head">
+        <h4>add new address</h4>
+        <span class="close-address"><a href="#"><i class="fas fa-times"></i></a></span>
+      </div>
+      <form action="{% url 'web:view_address' %}?redirect_to=cart_address" method="post">
+        
+        {% csrf_token %}  
+        <input type="hidden" data-pincheckurl="{% url 'web:check_pincode' %}" id="pin-checkurl">
+        {{form.name}}
+        {{form.phone}}
+        <div>
+          {{form.pincode}}
+        </div>
+        {{form.locality}}
+        <p class="pin_is_available" style="display: none;"></p>
+        {{form.city}}
+        {{form.state}}
+        {{form.address}}
+        <br>
+        <input type="submit" value="Add Address" id="button">
+
+      </form>
+    </div>
+  </div>
+
+  {% endblock content %}

@@ -1,0 +1,166 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Product Details</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Products</a></li>
+                                    <li class="breadcrumb-item active"> Product Info</li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                <a class="btn btn-success btn-sm text-white px-4 d-inline-block"  href="{% url 'product:create_product' %}" ><i class="mdi mdi-plus mr-2"></i>Add New</a>
+                            </div><!--end col--> 
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <!--product details row-->
+            <div class="row">
+                <div class="col-12">
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 align-self-center">
+                                    {%if instance.featured_image%}
+                                    <img src="{{instance.featured_image.url}}" alt="" class=" mx-auto  d-block" height="300">
+                                    {%endif%}                                           
+                                </div><!--end col-->
+                                <div class="col-lg-6 align-self-center">
+                                    <div class="single-pro-detail">
+                                        <p class="mb-1">Kiasco</p>
+                                        <div class="custom-border mb-3"></div>
+                                        <h3 class="pro-title">{{instance.name}}</h3>
+                                        <p class="text-muted mb-0">{{instance.short_description}}</p> 
+                                        <p class="text-muted mb-0">{{instance.category}} : {{instance.product_type}}</p> 
+                                        <ul class="list-inline mb-2 product-review">
+                                            {% if instance.current_rating == 5 %}
+                                                <li class="list-inline-item">{{instance.current_rating}}<i class="mdi mdi-star text-warning"></i> Ratings (0 reviews)</li>
+                                            {% else%}
+                                                <li class="list-inline-item">{{instance.current_rating}}<i class="mdi mdi-star-half text-warning"></i> Ratings (0 reviews)</li>
+                                            {% endif %}
+                                        </ul>
+                                        <h2 class="pro-price">₹{{instance.price}}&nbsp;<span><del>₹{{instance.mrp}}</del></span>{% if persentage != 0 %}<span class="text-danger font-weight-bold ml-2">{{persentage}}%&nbsp;Off</span>{%endif%}</h2>                                                 
+                                        <h6 class="text-muted font-13">Description :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.description}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13 d-inline-block align-middle mr-2">Available Sizes : </h6>
+                                        {% get_product_varient_in_product instance.pk  as available_stock %}
+                                        <p style="display: inline;font-weight: bolder;letter-spacing: 5px;">
+                                            {%for size in available_stock.available_sizes%}
+                                            {{size.size}}
+                                            {%endfor%}
+                                        </p> 
+                                                                                       
+                                        <div class="quantity mt-3 ">
+                                            <a href="{% url 'product:update_locations' pk=instance.pk %}" title="Set or Update Available Locations" class="btn btn-primary btn-sm text-white px-4 d-inline-block" style="background: #12a4ed !important;border-color: #12a4ed !important;"><i class="mdi mdi-map-marker mr-2"></i>Set Location</a>
+                                            <a href="{% url 'product:edit_product' pk=instance.pk %}" class="btn btn-primary btn-sm text-white px-4 d-inline-block" style="background: #12a4ed !important;border-color: #12a4ed !important;"><i class="mdi mdi-pen mr-2"></i>Edit</a>
+                                            <a data-id="{{ instance.pk }}" class="action-button remove redirect btn btn-primary btn-sm text-white px-4 d-inline-block"  href="{% url 'product:delete_product' pk=instance.pk %}" data-text="{{ confirm_delete_message }}" data-title="Are you sure?" style="background: #f5325c !important;border-color: #f5325c !important;"><i class="mdi mdi-trash-can-outline mr-2"></i>Delete</a>
+                                        </div>                                             
+                                    </div>
+                                </div><!--end col-->                                            
+                            </div><!--end row-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                    
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+            <!--product Variants row-->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Product Variants</h4>
+                                        </div><!--end card-header-->
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table mb-0 table-centered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="action">#</th>
+                                                        <th class="action">Size</th> 
+                                                        <th class="action">Stock</th>
+                                                        <th class="action">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {%if product_variant%}
+                                                    {%for variant in product_variant%}
+                                                    <tr>
+                                                        <td class="action">{{forloop.counter}}</td>
+                                                        <td class="action">{{variant.size}}</td>
+                                                        <td class="action">{{variant.stock}}</td>
+                                                        <td class="action">                                                       
+                                                            <a href="{% url 'product:edit_product' pk=variant.product.pk %}"><i class="las la-pen text-info font-18"></i></a>
+                                                            <a data-id="{{ variant.pk }}" class="action-button remove redirect" href="{% url 'product:delete_product_varient' pk=variant.pk %}" data-text="{{ confirm_delete_message }}" data-title="Are you sure?"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {%endfor%}
+                                                    {%endif%}
+                                                    
+                                                    </tbody>
+                                                </table><!--end /table-->
+                                            </div><!--end /tableresponsive-->
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div>
+                            </div>
+
+                        </div><!--card body end-->
+                    </div><!--card end-->
+                </div><!--col-end-->
+            </div><!--row-->
+
+            <!--product more images row-->
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">More Images</h4>
+                        </div><!--end card-header-->
+                        <div class="card-body"> 
+                            <div class="popup-gallery d-flex">
+
+                                {%for images in more_images%}
+                                <a href="{{images.image.url}}" title="The Cleaner">
+                                    <img src="{{images.image.url}}" alt="" class="img-fluid" width="200px;" height="200px">
+                                </a>
+                                {%endfor%}
+                                
+                              </div>
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+
+                </div><!--col-end-->
+            </div><!--row-->
+
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+        

@@ -1,0 +1,87 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% load web_templates_tags %}
+{% block content %}
+
+    <!-- header-end -->
+    <section id="shop-product">
+      <div class="wrapper">
+        <div class="head">
+          {% if category_name %}
+          <h4>{{category_name.name}}</h4>
+          {% else %}
+          <h4>{{page_name}}</h4>
+          {% endif %}
+          <div class="selector">
+            <p>Sort By:</p>
+            <form method="get" action="" id="sort_form">
+              <select id="filter_id" name="product_filter" id="filter">
+                  <option value="">Select</option>
+                  {% if not is_category %}
+                      {% for instance_new in category_name %}
+                          <option value="{{instance_new.id}}" selected="{% if sort_query == instance_new.id %}true{% else %}false{% endif %}">{{sort_query}}{{instance_new.name}}</option>
+                      {% endfor %}
+                  {% endif %}
+                  <option value="recommended" {% if sort_query == "recommended" %}selected{% endif %}>RECOMMENDED</option>
+                  <option value="lowest" {% if sort_query == "lowest" %}selected{% endif %}>LOWEST FIRST</option>
+                  <option value="highest" {% if sort_query == "highest" %}selected{% endif %}>HIGHEST FIRST</option>
+              </select>
+            </form>
+          </div>
+          
+        </div>
+
+        {% if instances %}
+        <ul class="content-box">
+          {%for product in instances%}
+
+          <li>
+            <a href="{% url 'web:product_view' pk=product.pk %}">
+              <div class="img-box">
+                {%if product.featured_image%}
+                <img src="{{product.featured_image.url}}" alt="{{product.name}}" />
+                {% get_is_varient  product.pk as stock_available %}
+                {% if not stock_available %}
+                <div class="out_of_stock"><p style="display: block;color: red;">OUT OF STOCK</p></div>
+                {% endif %}
+                {%endif%}
+              </div>
+            </a>
+            <div class="text-box">
+              <div class="name">
+                <h6>{{product.name}}</h6>
+                <span><i class="animate {% if product.pk in wishlist_items %}fa wishlist-fill {% else %} far {% endif %} fa-heart wishlist_icon {% if request.user.is_authenticated %} add-to-wishlist {% else %} signin {% endif %}" data-url="{% url 'web:add_to_wishlist' %}" data-product={{product.pk}} ></i></span>
+              </div>
+              <div class="price">
+                {% comment %} {% get_product_price product.pk as price %}
+                  {% if price.is_offer %}
+                  <span>₹ {{price.price}} </span>
+                  <small>₹ {{price.actual_rate}} </small>
+                {% else %} {% endcomment %}
+                  <span>₹ {{product.current_price|floatformat}} </span>
+                  <small>₹ {{product.mrp|floatformat}} </small>
+                {% comment %} {% endif %} {% endcomment %}
+              </div>
+            </div>
+          </li>
+          
+          {%endfor%}
+
+        </ul>
+
+        {% else %}
+         <div class="empty-cards">
+           <div class="empty-box">
+             <img src="{% static 'web/images/empty-product.png' %}" alt="Image" />
+             <h4>Oops</h4>
+             <p>There's no products available here.</p>
+           </div>
+         </div>
+        {% endif %}
+        {% include 'includes/pagination.html' %}
+
+      </div>
+    </section>
+    
+{% endblock content %}

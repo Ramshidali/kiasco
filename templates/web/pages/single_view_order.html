@@ -1,0 +1,155 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% block content %}
+
+    <section id="spotlight" class="all-order">
+      <div class="wrapper">
+        
+
+      {% include 'web/includes/profile_nav.html'%}
+
+        <div class="order-detials">
+          <div class="order-item">
+            <div class="item-top-box">
+              <h5>Order ID: #{{ instance.order.order_id }}</h5>
+              <h4>
+                <a href="#">Help <i class="fas fa-headset"></i></a>
+              </h4>
+            </div>
+            <div class="selected-item">
+              <a href="#">
+                <div class="preview-box">
+                  <img src="{{instance.product_varient.product.featured_image.url}}" alt="" />
+                </div>
+                <div class="item-content">
+                  <h4>{{instance.product_varient.product.name}}</h4>
+                  <span class="category">{{instance.product_varient.product.short_description}}</span>
+                  <span class="size">Size : {{instance.product_varient.size}}</span>
+                    {{instance.subtotal}}
+                  </span>
+                  <p>return policies ended on {{policy_date}}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!--ordered-item-->
+          <div class="order-status">
+            <ul class="order-track delivered">
+
+              <li {% if instance.order_status == "pending" %} class="status-done active" {% endif %}>
+                <h4>Checking</h4>
+                <i class="fas fa-circle"></i>
+                <p>{% if instance.order_status == "pending" %}{{instance.date_updated|date:"D, jS M"}}{% endif %}</p>
+              </li>
+              
+              
+              <li 
+              {% if instance.order.order_status == "ordered" %}
+               class="status-done active"
+               {% else %}
+               class="status-todo  "
+               {% endif %}>
+                <h4>orderd</h4>
+                <i class=" fas fa-circle"></i>
+                <p>{% if instance.order.order_status == "ordered" %}{{instance.date_updated|date:"D, jS M"}}{% endif %}</p>
+              </li>
+              
+              <li
+              {% if instance.order_status == "shipped" %}
+               class="status-done active"
+               {% else %}
+               class="status-todo "
+               {% endif %}>
+
+                <h4>shipped</h4>
+                <i class="fas fa-circle"></i>
+                <p>{% if instance.order_status == "shipped" %}{{instance.date_updated|date:"D, jS M"}}{% endif %}</p>
+              </li>
+
+
+              <li
+              {% if instance.order_status == "delivered" %}
+               class="status-done active"
+               {% else %}
+               class="status-todo"
+               {% endif %}>
+                <h4>delivered</h4>
+                <i class="fas fa-circle"></i>
+                <p>{% if instance.order_status == "delivered" %}{{instance.date_updated|date:"D, jS M"}}{% endif %}</p>
+              </li>
+
+
+            </ul>
+            {% if instance.order_status == "delivered" %}
+            <div class="review">
+              <a href="#"><span>rate and review product</span>
+                <small><img src="{% static 'web/images/star.svg' %}" alt="Star-rating"></small>
+            </a>
+            </div>
+            {% endif %}
+
+            <h3>
+              {% if instance.order_status == "pending" or instance.order_status == "ordered" %}
+              <a href="#" onclick="cancel_span('{{instance.order.pk}}','{{instance.product_varient.pk}}')" >cancel order <i class="fas fa-times-circle"></i></a>
+              {% endif %}
+
+              {% if instance.order_status == "cancelled" %}
+              <span>Cancelled</span>
+              {% endif %}
+
+            </h3>
+
+          </div>
+          <!--ordered-tracking-->
+          <div class="bottom-box">
+            <div class="address-box">
+              <h3>delivery address</h3>
+              <h5>{{instance.order.billing_name}}</h5>
+              <p>{{instance.order.billing_address}} {{instance.order.billing_locality}} {{instance.order.billing_city}}</p>
+              <span>pin : {{instance.order.billing_pincode}}, {{instance.order.billing_state}}</span>
+
+              <small>mobile : {{instance.order.billing_phone}}</small>
+            </div>
+            <div class="payment">
+              <h3>paid by using: {{instance.order.get_payment_method_display}}</h3>
+              <div class="download-btn"><a href="{% url 'web:invoice' pk=instance.pk %}"><h4>download invoice</h4> <span><img src="{% static 'web/images/download.svg' %}" alt="Download
+                "></span></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="cancel-modal-pop">
+      <div class="cancel-modal-overlay cancel-modal-toggle"></div>
+      <div class="cancel-modal-wrapper cancel-modal-transition">
+          <div class="top-rate">
+              <h3>Write Cancel Reason</h3>
+              <span>✖</span>
+          </div>
+          
+          <div class="bottom-rate">
+              <form action="{% url 'web:cancel_reason' %}" method="POST" enctype="multipart/form-data" class="ajax redirect">
+                  {% csrf_token %}
+                  <div class="left-rate">
+                      <img src="{{ instance.product_varient.product.featured_image.url }}" alt="Image" />
+                  </div>
+                  <div class="right-rate">
+                      <h5>{{instance.product_varient.product.name}}</h5>
+                  </div>
+                  
+                  <input type="hidden" name="order_id" id="order_pk">
+                  <input type="hidden" name="verient_id" id="verient_pk">
+
+                  {{form.cancel_reason}}
+
+                  <button type="submit">Submit</button>
+              </form>
+          </div>
+      </div>
+    </div>
+
+{% endblock content %}
+    

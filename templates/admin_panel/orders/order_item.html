@@ -1,0 +1,344 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Order Details</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Order Item</a></li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                <td class="action">
+                                
+                                    
+                                
+                                {% if not instance_tracking %}
+                                    <a title="Shipping details" data-toggle="modal" data-target="#modal_aside_right" href="javascript:void(0)" class=" btn btn-sm btn-primary tracking_status"><i class="mdi mdi-plus mr-2"></i>Add Tracking Details</a>
+                                {% else %}
+                                    <a title="Status" data-id = {{instance.id}} data-toggle="modal" data-target="#modal_aside_left" href="javascript:void(0)" class=" btn btn-sm btn-info status_button"><i class="mdi mdi-lead-pencil mr-2"></i>Status</a>
+                                {% endif %}
+                                <!-- {% if instance.order_status == "Shipped" %}
+                                    <a title="Shipping details" data-toggle="modal" data-target="#modal_aside_right" href="javascript:void(0)" class=" btn btn-sm btn-primary tracking_status"><i class="mdi mdi-plus mr-2"></i>Add Delivery Date</a>
+                                {% endif %} -->
+                                </td>
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <!--customer details row-->
+            <div class="row">
+                <div class="col-12">
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="single-pro-detail">
+                                        <h4>Order Details</h4>
+                                        <h6 class="text-muted font-13">Customer Name : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p><a href="{% url 'customers:customer' pk=instance.customer.pk %}">{{instance.order.customer}}</a></p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Order ID :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.order_id}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Total Amount :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.total_amount}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Time :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.time}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Payment :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.payment}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Payment Method :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.get_payment_method_display}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Order Status :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            {% if instance.order_status == 'pending' %}
+                                                <p class="text-warning">{{instance.get_order_status_display}}</p>
+                                            {% elif instance.order_status == 'shipped' %}
+                                                <p class="text-primary">{{instance.get_order_status_display}}</p>
+                                            {% elif instance.order_status == 'delivered' %}
+                                                <p class="text-success">{{instance.get_order_status_display}}</p>
+                                            {% else %}
+                                                <p class="text-danger">{{instance.get_order_status_display}}</p>
+                                            {% endif %}
+                                        </ul>
+
+                                        {% if not instance_tracking %}
+                                            <a title="Shipping details" data-toggle="modal" data-target="#modal_aside_right" href="javascript:void(0)" class=" btn btn-sm btn-primary"><i class="mdi mdi-plus mr-2"></i>Add Tracking Details</a>
+                                        {% else %}
+
+                                        {% if instance_tracking.tracking_id %}
+                                            <h6 class="text-muted font-13">Delivery Partner :</h6> 
+                                            <ul class="list-unstyled pro-features border-0">
+                                                <p>{{instance_tracking.delivery_partner}}</p>
+                                            </ul> 
+
+                                            <h6 class="text-muted font-13">Tracking ID :</h6> 
+                                            <ul class="list-unstyled pro-features border-0">
+                                                <p>{{instance_tracking.tracking_id}}</p>
+                                            </ul>
+
+                                            <h6 class="text-muted font-13">Expected Delivery Date :</h6> 
+                                            <ul class="list-unstyled pro-features border-0">
+                                                <p>{{instance_tracking.expected_date}}</p>
+                                            </ul>
+                                        {% endif %}
+                                        {% endif %}    
+
+                                        {% if instance.order.cancel_reason %}
+                                            <h6 class="text-muted font-13">Cancel Reason :</h6> 
+                                            <ul class="list-unstyled pro-features border-0">
+                                                <p>{{instance.order.cancel_reason}}</p>
+                                            </ul>
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="single-pro-detail">
+                                        <h4>Billing Details</h4>
+                                        <h6 class="text-muted font-13">Location : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_location}}</p>
+                                        </ul>
+                                        
+                                        <h6 class="text-muted font-13">Name :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_name}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Phone :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_phone}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Pincode :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_pincode}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Locality :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_locality}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">Address :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_address}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">City :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_city}}</p>
+                                        </ul>
+
+                                        <h6 class="text-muted font-13">State :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order.billing_state}}</p>
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                                       
+                            </div><!--end row-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                    
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+            <!-- customer address row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Order Items</h4>
+                                        </div><!--end card-header-->
+                                        {% if order_items %}
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table mb-0 table-centered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Product Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Sub Total</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% for instance in order_items %}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{instance.product_varient}}</td>
+                                                        <td>{{instance.qty}}</td>
+                                                        <td>{{instance.subtotal}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    </tbody>
+                                                </table><!--end /table-->
+                                            </div><!--end /tableresponsive-->
+                                        </div>
+                                        {% else %}
+                                        <div class="card-body text-center">
+                                            <h6>Nothing Found </h6>
+                                        </div>
+                                        {% endif %}<!--end card-body-->
+                                    </div><!--end card-->
+                                </div>
+                            </div>
+
+                        </div><!--card body end-->
+                    </div><!--card end-->
+                </div><!--col-end-->
+            </div><!--row-->
+
+        </div><!-- container -->
+    </div>
+     <!-- change_order_status modal -->
+     <div id="modal_aside_left" class="modal fixed-left fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-aside" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Order Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="status_form" action="" method="post" class="ajax reload reset"
+                                            enctype="multipart/form-data" action="{{ url }}">
+                                            {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group fg-line">
+                        <div class="form-group">
+                            <label for="{{ form.order_status.id_for_label }}">
+                                {{ form.order_status.label }}
+
+                                {% if form.order_status.field.required %}
+                                <small class="star text-danger">*</small>
+                                {% endif %}
+                            </label>
+                            {{ form.order_status }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_aside_right" class="modal fixed-left fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-aside" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Tracking Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="tracking_status"  method="post" class="ajax reload reset"
+                                            enctype="multipart/form-data" action="{% url 'orders:add_tracking_details' instance.pk %}">
+                                            {% csrf_token %}
+
+                <div class="modal-body">
+                    <div class="form-group fg-line">
+                    
+                        <div class="form-group">
+                            <label for="{{ tracking_form.delivery_partner.id_for_label }}">
+                                {{ tracking_form.delivery_partner.label }}
+
+                                {% if tracking_form.delivery_partner.field.required %}
+                                <small class="star text-danger">*</small>
+                                {% endif %}
+                            </label>
+                            {{ tracking_form.delivery_partner }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ tracking_form.tracking_id.id_for_label }}">
+                                {{ tracking_form.tracking_id.label }}
+
+                                {% if tracking_form.tracking_id.field.required %}
+                                <small class="star text-danger">*</small>
+                                {% endif %}
+                            </label>
+                            {{ tracking_form.tracking_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ tracking_form.expected_date.id_for_label }}">
+                                {{ tracking_form.expected_date.label }}
+
+                                {% if tracking_form.expected_date.field.required %}
+                                <small class="star text-danger">*</small>
+                                {% endif %}
+                            </label>
+                            {{ tracking_form.expected_date }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-sm ">Submit</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+{% block static %}
+<script>
+
+    //change_order_status 
+
+    $('.status_button').click(function (e) {
+        var pk = $(this).attr('data-id');
+        // var url = `{% url 'orders:change_order_status' pk="${String(pk)}" %}`
+        var url = "/kiasco-super-admin/orders/change-order-status/"+pk+"/"
+        $("#status_form").attr('action',url)
+        console.log(url,pk)
+    });
+</script>
+{% endblock %}       

@@ -1,0 +1,219 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Customer Details</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Customer</a></li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                {% if instance.user.is_active %}
+                                    <a data-id="{{ instance.pk }}" class="action-button remove redirect btn btn-danger btn-sm text-white px-4 d-inline-block"  href="{% url 'customers:revoke_customer' pk=instance.pk %}" data-text="{{ confirm_delete_message }}" data-title="Are you sure?"><i class="mdi mdi-key mr-2"></i>Revoke</a>
+                                {% else %}
+                                <a data-id="{{ instance.pk }}" class="action-button remove redirect btn btn-success btn-sm text-white px-4 d-inline-block"  href="{% url 'customers:grant_customer' pk=instance.pk %}" data-text="{{ confirm_delete_message }}" data-title="Are you sure?"><i class="mdi mdi-check-circle mr-2"></i>Grant</a>
+                                {% endif %}
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <!--customer details row-->
+            <div class="row">
+                <div class="col-12">
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12  d-flex">
+                                    
+                                        
+                                    <div class="col-lg-3">
+                                        <h6 class="text-muted font-13">Customer Name </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.name}}</p>
+                                        </ul>
+                                    </div>                                                    
+                                    <div class="col-lg-3">
+                                        <h6 class="text-muted font-13">Customer Email</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.email}}</p>
+                                        </ul>
+                                    </div>    
+                                    <div class="col-lg-3">    
+                                        <h6 class="text-muted font-13">Customer Phone</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.phone}}</p>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="text-muted font-13">Gender</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.get_gender_display}}</p>
+                                        </ul>
+                                    </div>
+                                </div>
+                                       
+                            </div><!--end row-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                    
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+            <!-- customer address row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Customer Addresses</h4>
+                                        </div><!--end card-header-->
+                                        {% if address %}
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table mb-0 table-centered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Phone</th>
+                                                        <th>Pincode</th>
+                                                        <th>Locality</th>
+                                                        <th>Address</th>
+                                                        <th>City</th>
+                                                        <th>State</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    
+                                                    {% for instance in address %}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{instance.name}}</td>
+                                                        <td>{{instance.phone}}</td>
+                                                        <td>{{instance.pincode}}</td>
+                                                        <td>{{instance.locality}}</td>
+                                                        <td>{{instance.address}}</td>
+                                                        <td>{{instance.city}}</td>
+                                                        <td>{{instance.state}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                    </tbody>
+                                                </table><!--end /table-->
+                                            </div><!--end /tableresponsive-->
+                                        </div>
+                                        {% else %}
+                                        <div class="card-body text-center">
+                                            <h6>Nothing Found </h6>
+                                        </div>
+                                        {% endif %}<!--end card-body-->
+                                    </div><!--end card-->
+                                </div>
+                            </div>
+
+                        </div><!--card body end-->
+                    </div><!--card end-->
+                </div><!--col-end-->
+            </div><!--row-->
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Orders</h4>
+                                        </div><!--end card-header-->
+                                        {% if orders %}
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table mb-0 table-centered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Order ID</th>
+                                                            <th>Customer</th>
+                                                            <th>Time</th>
+                                                            <th>Order Status</th>
+                                                            <th class="action">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    
+                                                    {% for instance in orders %}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>
+                                                            <p class="d-inline-block align-middle mb-0">
+                                                                <a href="{% url 'orders:order_item' pk=instance.pk %}" class="d-inline-block align-middle mb-0 product-name">{{instance.order.order_id}}</a> 
+                                                            </p>
+                                                        </td>
+                                                        <td>{{instance.order.customer}}</td>
+                                                        <td>{{instance.order.time}}</td>
+                                                        {% if instance.order_status == 'pending' %}
+                                                            <td class="text-warning">{{instance.get_order_status_display}}</td>
+                                                        {% elif instance.order_status == 'shipped' %}
+                                                            <td class="text-primary">{{instance.get_order_status_display}}</td>
+                                                        {% elif instance.order_status == 'delivered' %}
+                                                            <td class="text-success">{{instance.get_order_status_display}}</td>
+                                                        {% else %}
+                                                            <td class="text-danger">{{instance.get_order_status_display}}</td>
+                                                        {% endif %}
+                                                        
+                                                        
+                                                        <td class="action">                                                       
+                                                            <a href="{% url 'orders:order_item' pk=instance.pk %}" class="mr-2"><i class="las la-eye text-info font-18"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                    </tbody>
+                                                </table><!--end /table-->
+                                            </div><!--end /tableresponsive-->
+                                        </div>
+                                        {% else %}
+                                        <div class="card-body text-center">
+                                            <h6>Nothing Found </h6>
+                                        </div>
+                                        {% endif %}<!--end card-body-->
+                                    </div><!--end card-->
+                                </div>
+                            </div>
+
+                        </div><!--card body end-->
+                    </div><!--card end-->
+                </div><!--col-end-->
+            </div><!--row-->
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+        

@@ -1,0 +1,331 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% load web_templates_tags %}
+{% block content %}
+
+    <section id="product">
+        <div class="wrapper">
+            <div class="path">
+                <p>home/{{page_name}}/ <span>{{instance.name}}</span></p>
+            </div>
+
+            <div class="main-box">
+                <div class="container">
+                    {% if more_images %}
+                      {% for images in more_images %}
+                      {% if forloop.counter == 1 %}
+                      <div class="mySlides slide-first">
+                          <img src="{{images.image.url}}" style="width: 100%" />
+                      </div>
+                      {% else %}
+                      <div class="mySlides">
+                        <img src="{{images.image.url}}" style="width: 100%" />
+                    </div>
+                      {% endif %}
+                      {% endfor %}
+                    {% else %}
+                    <div class="mySlides slide-first">
+                      <img src="{{instance.featured_image.url}}" style="width: 100%" />
+                    </div>
+                    {% endif %}
+
+                    <div class="row">
+
+                        {%for image in more_images%}
+                        <div class="column">
+                            <img class="demo cursor" src="{{image.image.url}}" style="width: 100%"
+                                onclick="currentSlide({{forloop.counter}})" alt="The Woods" />
+                        </div>
+                        {%endfor%}
+
+                    </div>
+                    <div class="product-detials">
+
+                        <h4>product details</h4>
+                        <p>{{instance.description}}</p>
+                    </div>
+                </div>
+                <div class="txt-box">
+                  {% get_is_varient  instance.pk as stock_available %}
+                  {% if not stock_available %}
+                        <div class="out_of_stock"><p style="display: block;color: red;">Out Of Stock</p></div>
+                        {% endif %}
+                    <h4>{{instance.name}}</h4>
+                    <span>{{instance.short_description}}</span>
+                    <div class="price-box">
+
+                    {% comment %} {% get_product_price instance.pk as price %}
+                    {% if price.is_offer %}
+                        <p>₹ {{price.price}} </p>
+                        <small>₹ {{price.actual_rate}} </small>
+                        <span>({{price.offer_percentage}}% Off)</span>
+                    {% else %} {% endcomment %}
+                        <p>₹ {{instance.current_price|floatformat}} </p>
+                        <small>₹ {{instance.mrp|floatformat}} </small>
+                    {% comment %} {% endif %} {% endcomment %}
+
+                    </div>
+
+                    <p class="tax">
+                        inclusive off all taxes
+                    </p>
+                    <div class="size">
+                      {%for brand_size in product_variant%}
+                        <span><a href="javascript:void(0)" data-varient="{{brand_size.pk}}" id="varient{{brand_size.pk}}" onclick="selectedvarient('{{brand_size.pk}}')" data-url="{% url 'web:check_varient' %}" class="select-varient">{{brand_size.size}}</a></span>
+                      {%endfor%}
+                    </div>
+
+                    <div class="button-box product-button-box" i>
+
+                        {% comment %} {% if instance.pk in cart_items %} {% endcomment %}
+                        <a href="{% url 'web:view_cart' %}" class="cart" id="gotocart_button" style="display: none;">go to cart <i class="fas fa-arrow-right"></i></a>
+                        {% comment %} {% else %} {% endcomment %}
+                        <a href="javascript:void(0)" class="cart add-cart" id="addtocart_button" data-varient="" data-url="{% url 'web:add_to_cart' %}" style="display: none;">Add to Cart <i class="fa fa-shopping-cart"></i></a>
+                        {% comment %} {% endif %} {% endcomment %}
+
+                        {% comment %} {% if instance.pk not in wishlist_items %}
+                            <a style="height: 46px;" href="javascript:void(0)" class="wishlist wishlist_icon {% if request.user.is_authenticated %} add-to-wishlist {% else %} signin {% endif %}" data-url="{% url 'web:add_to_wishlist' %}" data-product="{{instance.pk}}" class="wishlist_button_product"> wishlist <i style="    margin-left: 6px;" class="fa fa-heart"></i></a>
+                        {% else %}
+                            <a href="javascript:void(0)" class="wishlist wishlist_icon {% if request.user.is_authenticated %} add-to-wishlist {% else %} signin {% endif %}" data-url="{% url 'web:add_to_wishlist' %}" data-product="{{instance.pk}}" class="wishlist_button_product" style="background-color: #c40000; color:#fff;"><img src="{%static 'web/images/wishlist.svg' %}" alt="Wishlist">In Wishlist</a>
+                        {% endif %} {% endcomment %}
+
+                        <span style="border: 1px solid #eee;text-align: center;
+                        padding: 11px 18px;
+                        color: black;
+                        text-transform: capitalize;
+                        font-size: 16px;
+                        border-radius: 4px;
+                        width: 10%;
+                        transition: 0.3s ease;margin-bottom: 0;"><i class="animate {% if instance.pk in wishlist_items %}fa wishlist-fill {% else %} far {% endif %} fa-heart wishlist_icon add-to-wishlist " style="color:red;" data-url="{% url 'web:add_to_wishlist' %}" data-product={{instance.pk}} ></i></span>
+
+                        <a href="https://wa.me/7902331122/?text={{instance.name}} {{request.build_absolute_uri}}" target="_blank" style="text-align: center;
+                        color: black;
+                        text-transform: capitalize;
+                        font-size: 16px;
+                        border-radius: 4px;
+                        width: 10%;
+                        transition: 0.3s ease;margin-bottom: 0;">
+                        <img src="{% static 'web/images/whatsapp-chat.svg' %}" alt="" style="width: 70%;">
+                      </a>
+
+                    </div>
+                    {% if not stock_available %}
+                      <div class="os-message-section">
+                        <span>
+                          To know more about product, contact us through WhatsApp
+                        </span>
+                      </div>
+                    {% endif %}
+                    <div class="delivery-option">
+                        <h4>delivery options</h4>
+                        {% comment %} <div class="pincode">
+                            <input type="number" id="pincode" onchange="pincode()" onKeyPress="if(this.value.length==6) return false;" maxlength="6" min="0" placeholder="Pin code"><i class="fas fa-check-circle"></i>
+                            <a href="javascript:void(0)" id="chech-pincode" data-url="{% url 'web:check_pincode' %}">Check</a>
+                        </div> {% endcomment %}
+                        <ul>
+                            <li id="delivery_date"></li>
+                            {% if instance.cash_on_delivery %}
+                            <li style="color:green">COD Available</li>
+                            {% else %}
+                            <li style="color:red">COD Not Available</li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="size-chart">
+            <div class="wrapper">
+                <h5>size chart</h5>
+                <div class="chart-box">
+                    <div class="table-box">
+                        <table class="sizeChart_table" data-pro_type="{{instance.product_type}}">
+                            <thead>
+                                <tr>
+                                    <th>size</th>
+                                    <th>brand size</th>
+                                    <th class="chest">chest</th>
+                                    <th class="front_length">front length</th>
+                                    <th class="accross_sholder">across shoulder</th>
+                                    <th class="waist">waist</th>
+                                    <th class="sleeve_length">sleeve length</th>
+                                    <th class="rise">Rise</th>
+                                    <th class="thigh">thigh</th>
+                                    <th class="inseam">Inseam</th>
+                                    <th class="outseam">Outseam</th>
+                                    <th class="bottom_hem">Bottm Hem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for size in size_chart %}
+                                <tr>
+                                    <td scope="row" data-label="Size">{{size.size}}</td>
+                                    <td data-label=" Brand size">{{size.brand_size}}</td>
+                                    <td data-label="chest" class="chest">{{size.chest}}</td>
+                                    <td data-label="front length" class="front_length">{{size.front_length}}</td>
+                                    <td data-label="accross sholder" class="accross_sholder">{{size.across_sholder}}</td>
+                                    <td data-label="waist" class="waist">{{size.waist}}</td>
+                                    <td data-label="sleeve length" class="sleeve_length">{{size.sleeve_length}}</td>
+                                    <td data-label="rise" class="rise">{{size.rise}}</td>
+                                    <td data-label="thing" class="thigh">{{size.thigh}}</td>
+                                    <td data-label="inseam" class="inseam">{{size.inseam}}</td>
+                                    <td data-label="outseam" class="outseam">{{size.outseam}}</td>
+                                    <td data-label="bottom hem" class="bottom_hem">{{size.bottom_hem}}</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if size_chart_img %}
+                        <div class="size-image">
+                            <img src="{{size_chart_img.image.url}}" alt="Size-chart">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    <div class="rating-graph">
+        <div class="wrapper">
+            <h4>REVIEW AND RATINGS</h4>
+            <div class="main-graph">
+                {% if not current_rating == 0 %}
+                <div class="left-graph-box">
+                  <h2>{{current_rating}}<span>★</span> </h2>
+                </div>
+                {% endif %}
+
+                <div class="row-graph">
+
+                  <div class="flex-graph">
+                    <div class="side-graph">
+                      <div>5 <span>★</span> </div>
+                    </div>
+                    <div class="middle-graph">
+                      <div class="bar-container">
+                        <div class="bar-5" style="width: {{five_star_percentage}}%;"></div>
+                      </div>
+                    </div>
+                    <div class="side-graph right-graph">
+                      <div>{{five_star}}</div>
+                    </div>
+                  </div>
+
+                  <div class="flex-graph">
+                    <div class="side-graph">
+                      <div>4 <span>★</span> </div>
+                    </div>
+                    <div class="middle-graph">
+                      <div class="bar-container">
+                        <div class="bar-4" style="width: {{four_star_percentage}}%;"></div>
+                      </div>
+                    </div>
+                    <div class="side-graph right-graph">
+                      <div>{{four_star}}</div>
+                    </div>
+                  </div>
+
+                  <div class="flex-graph">
+                    <div class="side-graph">
+                      <div>3 <span>★</span> </div>
+                    </div>
+                    <div class="middle-graph">
+                      <div class="bar-container">
+                        <div class="bar-3" style="width: {{three_star_percentage}}%;"></div>
+                      </div>
+                    </div>
+                    <div class="side-graph right-graph">
+                      <div>{{three_star}}</div>
+                    </div>
+                  </div>
+
+                  <div class="flex-graph">
+                    <div class="side-graph">
+                      <div>2 <span>★</span> </div>
+                    </div>
+                    <div class="middle-graph">
+                      <div class="bar-container">
+                        <div class="bar-2" style="width: {{two_star_percentage}}%;"></div>
+                      </div>
+                    </div>
+                    <div class="side-graph right-graph">
+                      <div>{{two_star}}</div>
+                    </div>
+                  </div>
+
+
+                  <div class="flex-graph">
+                    <div class="side-graph">
+                      <div>1 <span>★</span> </div>
+                    </div>
+                    <div class="middle-graph">
+                      <div class="bar-container">
+                        <div class="bar-1" style="width: {{one_star_percentage}}%;"></div>
+                      </div>
+                    </div>
+                    <div class="side-graph right-graph">
+                      <div>{{one_star}}</div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+
+            <div class="rating-commands">
+              {% for r in review %}
+              {% if r.review %}
+                <div class="card-graph">
+                  <div class="round">
+                    <h5>{{r.rating}} ★</h5>
+                    <p>{{r.review}}</p>
+                  </div>
+                  <div class="date-rate">
+                    <b>{{r.date_added}}</b>
+                  </div>
+                </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+
+        <div class="list-box also-like">
+            <div class="wrapper">
+              <div class="name-box">
+                <h4>you may also like</h4>
+              </div>
+              <ul class="content-box item-slider">
+
+                {%for m_product in more_products%}
+                <li>
+                    <a href="{% url 'web:product_view' pk=m_product.pk %}">
+                      <div class="img-box">
+                        {%if m_product.featured_image%}
+                        <img src="{{m_product.featured_image.url}}" alt="{{m_product.name}}" />
+                        {%endif%}
+                      </div>
+                    </a>
+                    <div class="text-box">
+                      <div class="name">
+                        <h6>{{m_product.name}}</h6>
+                        <span><i class="animate {% if m_product.pk in wishlist_items %}fa wishlist-fill {% else %} far {% endif %} fa-heart wishlist_icon {% if request.user.is_authenticated %} add-to-wishlist {% else %} signin {% endif %}" data-url="{% url 'web:add_to_wishlist' %}" data-product={{m_product.pk}} ></i></span>
+                      </div>
+                      <div class="price">
+                          <span>₹ {{m_product.current_price|floatformat}} </span>
+                          <small>₹ {{m_product.mrp|floatformat}} </small>
+                  </li>
+
+                {%endfor%}
+
+              </ul>
+            </div>
+          </div>
+    </section>
+
+
+{% endblock content %}

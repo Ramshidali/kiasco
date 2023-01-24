@@ -1,0 +1,86 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Order Report</h4>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                <a class="btn btn-outline-info btn-icon-text"  target="blank" href="{% url 'reports:print_payment_report' %}" >Print <i class="ti-printer btn-icon-append"></i></a>
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order ID</th>
+                                    <th>Payment ID</th>
+                                    <th>Customer</th>
+                                    <th>Total Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Order Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% load el_pagination_tags %}
+                                {% paginate 20 instances %}
+                                {% for instance in instances %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{instance.order_id}}</td>
+                                    <td>{{instance.payment}}</td>
+                                    <td>{{instance.customer}}</td>
+                                    <td>{{instance.total_amount}}</td>
+                                    <td>{{instance.payment_method}}</td>
+                                    <td>{{instance.order_status}}</td>
+                                </tr>
+                                {% endfor %}
+                                {% comment %} {% show_pages %} {% endcomment %}
+    
+                                </tbody>
+                            </table> 
+                            
+                            {% get_pages %}
+                            <div class="clearfix"></div>
+                            <div class="row pagi my-3">
+                                <div class="col-sm-6 col-xs-6 text-left my-pagination align-items-center">{% show_pages %}</div>
+                                <div class="col-sm-6 col-xs-6 text-right tot my-pagination align-items-center">
+                                    <div class="m-t-10">
+                                        Showing {{title}}
+                                        <span class="current_page_index">{{ pages.current_start_index }}</span> - <span
+                                            class="current_end_status">{{ pages.current_end_index }}</span> of <span
+                                            class="total_count">{{ pages.total_count }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div>
+            
+
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+        

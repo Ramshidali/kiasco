@@ -1,0 +1,50 @@
+{% load static %}
+<div class="signup-detail">
+  <a href="" id="back-btn"  class="btn  waves-effect waves-light"><img src="{% static 'web/images/close.svg' %}" alt="image"></a href="{% url 'web:index' %}">
+    <div class="logo">
+      <img  src="{% static 'web/images/Kiasco_Logo_white.png' %}" alt="Logo" />
+    </div>
+    <div class="verify">
+      <p>
+        mobile number +91<small class="number"></small>
+        <span>verified <i class="fas fa-check-circle"></i></span>
+      </p>
+        <div class="item"><label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter Your Name*" required />
+          <p class="required_text" id="required_text_name" style="display: none; color: red; font-size: 10px; text-align: left; margin: 9px 0 0 0;">*required</p>
+        </div>
+
+        <div class="item">
+          <label for="email">Email Address</label>
+          <input type="email" id="signup_email" name="email" placeholder="Enter Your Email*" required />
+          <p class="required_text" id="required_text_email" style="display: none; color: red; font-size: 10px; text-align: left; margin: 9px 0 0 0;">*required</p>
+        </div>
+        {% comment %} <div class="item last">
+          <label for="password">Create Password</label>
+          <input type="password" id="signup_password" name="password" placeholder="Enter Password*" required />
+          <p class="required_text" id="required_text_password" style="display: none; color: red; font-size: 10px; text-align: left; margin: 9px 0 0 0;">*required</p>
+        </div> {% endcomment %}
+        {% comment %} <div class="pass-method">
+          <span id="charecter">8 characters</span>
+          <span id="special">1 special</span>
+          <span id="upper">1 uppercase</span>
+          <span id="numeric">1 numeric</span>
+        </div> {% endcomment %}
+        <div class="gender-box">
+          <div class="gender">
+            <input type="radio" name="genders" class="genders" value="10" id="male" />
+            <span class="checkmark"></span>
+            <label for="male">Male</label>
+          </div>
+          <div class="gender">
+            <input type="radio" name="genders" class="genders" value="20" id="female" />
+            <span class="checkmark"></span>
+            <label for="female">Female</label>
+          </div>
+        </div>
+        <p class="required_text_gender" style="display: none; color: red; font-size: 10px; text-align: left; margin: 9px 0 0 0;">*required</p>
+
+        <input type="submit" data-url="{% url 'web:signup' %}" id="signup" value="Complete Sign Up" />
+      {% comment %} </form> {% endcomment %}
+    </div>
+  </div>

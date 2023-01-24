@@ -1,0 +1,712 @@
+[
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "customer_user",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$owp9LyjUepTIi0eOtt0WAn$r8lTFx6S4QW+qMrQltucgMMGmkYRmFBSto5aPRR4818=",
+        "last_login": "2022-04-08T11:28:19.991Z",
+        "is_superuser": true,
+        "username": "ra",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-04-08T11:28:07.317Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$LtPtQ3JEDHz2cWLkv7O7du$vCYGd7nbRE+o0Ro/nNGeOlXzaIfQnjxt+ja2ZxHlvKY=",
+        "last_login": "2022-04-12T12:14:15.969Z",
+        "is_superuser": false,
+        "username": "aliramshid@gmil.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "aliramshid@gmil.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-04-11T10:29:45.763Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$HPGjkSYAY0mPevJjaA50d1$KASIFT8xKK0iXQf4y3zJ9vi/rr9iDpZrbuaruyoD4Ds=",
+        "last_login": "2022-04-13T04:17:13.863Z",
+        "is_superuser": false,
+        "username": "fayiz@gmail.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "fayiz@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-04-13T04:17:12.966Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$jheb9tMrhztzBwHqbmpVY6$dMCJW0C3E+jI/OeBZ27+embR6J3ucuot9Eri7eJR+SY=",
+        "last_login": "2022-04-13T04:18:48.855Z",
+        "is_superuser": false,
+        "username": "adharsh@gmail.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "adharsh@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-04-13T04:18:48.144Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$FWUTAaLZEIyuZwfnTDwCsB$5zcQqhKfUmt+sJN8OyqEvD5W912hegYCf6aYA0r/QSQ=",
+        "last_login": "2022-04-13T04:49:31.981Z",
+        "is_superuser": false,
+        "username": "shibin989@gmail.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "shibin989@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-04-13T04:49:31.275Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "0518d77f-812a-4bbf-924f-0fc848880009",
+    "fields": {
+        "phone": "9544334756",
+        "otp": "1675",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "11cf52e7-9c31-4435-ad3e-b1c198d646a5",
+    "fields": {
+        "phone": "7894561231",
+        "otp": "7926",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "356dda2a-e03b-4b64-95fe-205ac38cc32e",
+    "fields": {
+        "phone": "1111111111",
+        "otp": "0430",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "4ce2baa7-7f3c-49b1-b6a4-574081d2273a",
+    "fields": {
+        "phone": "9999999999",
+        "otp": "5687",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "5b6b4696-5324-4da8-83f3-b74375c77d91",
+    "fields": {
+        "phone": "7894561233",
+        "otp": "6011",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "6b67a02c-c128-463a-aacf-89053b2bd317",
+    "fields": {
+        "phone": "6363636363",
+        "otp": "8979",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "c0fca9de-9c20-4338-9df2-803f40ae10e1",
+    "fields": {
+        "phone": "7894561232",
+        "otp": "0791",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otprecords",
+    "pk": "de4f76a6-4a25-4647-965c-3b7fda24baa3",
+    "fields": {
+        "phone": "8888888888",
+        "otp": "5800",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.otpemailrecords",
+    "pk": "2e23c2d6-10c4-44cf-8930-3eafd7e4bb08",
+    "fields": {
+        "email": "aliramshid@gmil.com",
+        "otp": "5688",
+        "attempts": 1
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": "089010ef-a499-4baf-a24b-f960c1e387a8",
+    "fields": {
+        "auto_id": 3,
+        "creator": 4,
+        "updater": 4,
+        "date_added": "2022-04-13T04:18:48.506Z",
+        "date_updated": "2022-04-13T04:18:48.506Z",
+        "is_deleted": false,
+        "user": 4,
+        "password": "gAAAAABiVk8o8NSgznDF4ZmrUDzVlIkJvT18s5a_IdWZFfUXb7qCzWAtqB_9J8DhHC2fA9tTtvSLwoRlxbr4x3waTQC4lGtmfw==",
+        "phone": "9999999999",
+        "name": "adharsh",
+        "email": "adharsh@gmail.com",
+        "gender": "10"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": "2585810c-6bad-4036-a132-b915195e1013",
+    "fields": {
+        "auto_id": 4,
+        "creator": 5,
+        "updater": 5,
+        "date_added": "2022-04-13T04:49:31.632Z",
+        "date_updated": "2022-04-13T04:49:31.632Z",
+        "is_deleted": false,
+        "user": 5,
+        "password": "gAAAAABiVlZbSrXf147r_y771IYygtcKJyf8wWBn9-CDfC__ZyIasEWTt8r7OpVBq7DYR-C1LkmHhWz2g0YfTdTkBwupSXInKw==",
+        "phone": "7894561232",
+        "name": "Shibin k",
+        "email": "shibin989@gmail.com",
+        "gender": "10"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": "b93df729-e69b-4876-ad53-899639c5c0ac",
+    "fields": {
+        "auto_id": 1,
+        "creator": 2,
+        "updater": 2,
+        "date_added": "2022-04-11T10:29:46.318Z",
+        "date_updated": "2022-04-11T10:29:46.318Z",
+        "is_deleted": false,
+        "user": 2,
+        "password": "gAAAAABiVAMaJnQT1oYBgz9Phh7V1BmztI2axqHIMvmN42arTZK1qQzdYbcfpYauZIw5FbBg4-Qi3bn4WZmfJImCtsqUlyZkPg==",
+        "phone": "9544334756",
+        "name": "ramshid",
+        "email": "aliramshid@gmil.com",
+        "gender": "10"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": "edbbd705-5921-4898-8b5a-7a2e0ed16215",
+    "fields": {
+        "auto_id": 2,
+        "creator": 3,
+        "updater": 3,
+        "date_added": "2022-04-13T04:17:13.493Z",
+        "date_updated": "2022-04-13T04:17:13.493Z",
+        "is_deleted": false,
+        "user": 3,
+        "password": "gAAAAABiVk7JNZgUeNThWN2ivaKdK61idtQWlQzn-DqEsplV7IwtuhENZbsUfSlsA3X7WLXaNhsf_Gtz8w-JCUekQtggxprzWw==",
+        "phone": "6363636363",
+        "name": "fayiz",
+        "email": "fayiz@gmail.com",
+        "gender": "10"
+    }
+},
+{
+    "model": "customers.cartitem",
+    "pk": "c3248ebf-c0a8-4ea4-b88b-0114af3f5150",
+    "fields": {
+        "auto_id": 1,
+        "creator": 2,
+        "updater": 2,
+        "date_added": "2022-04-11T11:58:43.497Z",
+        "date_updated": "2022-04-11T11:58:43.497Z",
+        "is_deleted": false,
+        "customer": "b93df729-e69b-4876-ad53-899639c5c0ac",
+        "product_varient": "acd36e69-aa81-4265-ad56-bd0f1ea1109c",
+        "qty": 1,
+        "unit_price": "1999.00"
+    }
+},
+{
+    "model": "general.location",
+    "pk": "0322b91a-359e-4e01-a1c5-9f79d11161f8",
+    "fields": {
+        "auto_id": 1,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:53:37.754Z",
+        "date_updated": "2022-04-11T10:53:37.754Z",
+        "is_deleted": false,
+        "name": "calicut",
+        "pincode": "673586",
+        "delivery_charge": "0.00",
+        "cash_on_delivery": false,
+        "min_day_of_delivery": 20
+    }
+},
+{
+    "model": "product.productcategory",
+    "pk": "41b065ce-2769-4d86-a2f9-883db39a961a",
+    "fields": {
+        "auto_id": 2,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:39:09.494Z",
+        "date_updated": "2022-04-11T10:39:09.494Z",
+        "is_deleted": false,
+        "name": "Sports",
+        "description": "test"
+    }
+},
+{
+    "model": "product.productcategory",
+    "pk": "48acec67-d2e7-4083-b69e-8cd908f6a71b",
+    "fields": {
+        "auto_id": 1,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:38:41.768Z",
+        "date_updated": "2022-04-11T10:38:41.768Z",
+        "is_deleted": false,
+        "name": "Jersey",
+        "description": "test"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "2829e03a-792d-4e18-aa29-8940b6c024a4",
+    "fields": {
+        "auto_id": 9,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:35:01.278Z",
+        "date_updated": "2022-04-11T06:35:01.278Z",
+        "is_deleted": false,
+        "type": "pant",
+        "name": "inseem"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "3519fba8-81c3-49fd-8143-7da26174045c",
+    "fields": {
+        "auto_id": 2,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:32:15.530Z",
+        "date_updated": "2022-04-11T06:32:15.530Z",
+        "is_deleted": false,
+        "type": "shirt",
+        "name": "front_length"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "55d68ac0-c015-417e-b70f-1072b46dd44a",
+    "fields": {
+        "auto_id": 3,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:32:43.732Z",
+        "date_updated": "2022-04-11T06:32:43.732Z",
+        "is_deleted": false,
+        "type": "shirt",
+        "name": "accross_sholder"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "61fbb5cd-6651-40bf-afb6-7be95a10f494",
+    "fields": {
+        "auto_id": 10,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:35:22.810Z",
+        "date_updated": "2022-04-11T06:35:22.811Z",
+        "is_deleted": false,
+        "type": "pant",
+        "name": "outseam"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "6a06653d-56fb-4699-a944-71a785cb5cbb",
+    "fields": {
+        "auto_id": 7,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:34:22.591Z",
+        "date_updated": "2022-04-11T06:34:22.591Z",
+        "is_deleted": false,
+        "type": "pant",
+        "name": "rise"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "74717e85-b69a-47e6-b8da-bdce24721ed6",
+    "fields": {
+        "auto_id": 1,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:31:58.975Z",
+        "date_updated": "2022-04-11T06:31:58.975Z",
+        "is_deleted": false,
+        "type": "shirt",
+        "name": "chest"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "bb2620de-d4e0-4a75-ad72-bb225e8679f7",
+    "fields": {
+        "auto_id": 5,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:33:16.987Z",
+        "date_updated": "2022-04-11T06:33:16.987Z",
+        "is_deleted": false,
+        "type": "shirt",
+        "name": "sleeve_length"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "dc342af9-7666-48d0-87f2-b8254bba99d4",
+    "fields": {
+        "auto_id": 11,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:36:04.382Z",
+        "date_updated": "2022-04-11T06:36:04.382Z",
+        "is_deleted": false,
+        "type": "pant",
+        "name": "bottom_hem"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "eebe994e-d42d-459b-97c1-ee764360588c",
+    "fields": {
+        "auto_id": 6,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:33:36.766Z",
+        "date_updated": "2022-04-11T06:33:36.766Z",
+        "is_deleted": false,
+        "type": "pant",
+        "name": "waist"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "f31b55a3-490c-48a7-a84b-fd6f7e52a4ce",
+    "fields": {
+        "auto_id": 8,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:34:39.441Z",
+        "date_updated": "2022-04-11T06:34:39.441Z",
+        "is_deleted": false,
+        "type": "pant",
+        "name": "thigh"
+    }
+},
+{
+    "model": "product.messurment",
+    "pk": "fd0678fa-0f13-4d4e-8959-505b855d1c85",
+    "fields": {
+        "auto_id": 4,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T06:33:00.692Z",
+        "date_updated": "2022-04-11T06:33:00.692Z",
+        "is_deleted": false,
+        "type": "shirt",
+        "name": "waist"
+    }
+},
+{
+    "model": "product.metakeyword",
+    "pk": "5e54a593-5ce8-4ab5-a896-4a94421cbf19",
+    "fields": {
+        "auto_id": 1,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:40:43.245Z",
+        "date_updated": "2022-04-11T10:40:43.245Z",
+        "is_deleted": false,
+        "name": "shirts"
+    }
+},
+{
+    "model": "product.metakeyword",
+    "pk": "c3fcc235-0eae-487f-aa03-7d7cbf088b79",
+    "fields": {
+        "auto_id": 2,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:40:54.616Z",
+        "date_updated": "2022-04-11T10:40:54.617Z",
+        "is_deleted": false,
+        "name": "pants"
+    }
+},
+{
+    "model": "product.product",
+    "pk": "611263a1-6bb8-4f7b-81bf-5c30ffc7dea7",
+    "fields": {
+        "auto_id": 2,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:56:52.231Z",
+        "date_updated": "2022-04-11T10:56:52.231Z",
+        "is_deleted": false,
+        "category": "48acec67-d2e7-4083-b69e-8cd908f6a71b",
+        "product_type": "pant",
+        "name": "pant",
+        "short_description": "test",
+        "description": "test",
+        "featured_image": "product/product_cover/Mishkath.png",
+        "mrp": "2000.00",
+        "price": "1999.00",
+        "current_rating": "0.00",
+        "meta_keywords": [
+            "c3fcc235-0eae-487f-aa03-7d7cbf088b79"
+        ],
+        "delivery_locations": [
+            "0322b91a-359e-4e01-a1c5-9f79d11161f8"
+        ]
+    }
+},
+{
+    "model": "product.product",
+    "pk": "fd656454-e6d5-4ced-be66-2bdea7309d49",
+    "fields": {
+        "auto_id": 1,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:55:00.307Z",
+        "date_updated": "2022-04-11T10:55:00.307Z",
+        "is_deleted": false,
+        "category": "48acec67-d2e7-4083-b69e-8cd908f6a71b",
+        "product_type": "shirt",
+        "name": "shirt",
+        "short_description": "test",
+        "description": "test",
+        "featured_image": "product/product_cover/Mishkath_-__Subject_-_Lessons.png",
+        "mrp": "2000.00",
+        "price": "1999.00",
+        "current_rating": "0.00",
+        "meta_keywords": [
+            "5e54a593-5ce8-4ab5-a896-4a94421cbf19"
+        ],
+        "delivery_locations": [
+            "0322b91a-359e-4e01-a1c5-9f79d11161f8"
+        ]
+    }
+},
+{
+    "model": "product.productsizechart",
+    "pk": "6553fe83-7098-43c3-8ce6-258b8948073d",
+    "fields": {
+        "brand_size": "M",
+        "size": 20,
+        "Product_type": "shirt",
+        "waist": "20.0",
+        "rise": null,
+        "thigh": null,
+        "inseam": null,
+        "outseam": null,
+        "bottom_hem": null,
+        "chest": "20.0",
+        "front_length": "20.0",
+        "across_sholder": "20.0",
+        "sleeve_length": "20.0",
+        "is_deleted": false
+    }
+},
+{
+    "model": "product.productsizechart",
+    "pk": "6934cb6f-faed-44c6-8807-105a2a2d19d8",
+    "fields": {
+        "brand_size": "L",
+        "size": 10,
+        "Product_type": "shirt",
+        "waist": "10.0",
+        "rise": null,
+        "thigh": null,
+        "inseam": null,
+        "outseam": null,
+        "bottom_hem": null,
+        "chest": "10.0",
+        "front_length": "10.0",
+        "across_sholder": "10.0",
+        "sleeve_length": "10.0",
+        "is_deleted": false
+    }
+},
+{
+    "model": "product.productvariant",
+    "pk": "51b48da6-209a-47ae-a54f-4fec614e19cb",
+    "fields": {
+        "product": "fd656454-e6d5-4ced-be66-2bdea7309d49",
+        "size": "L",
+        "stock": "20",
+        "is_deleted": false,
+        "is_default": false
+    }
+},
+{
+    "model": "product.productvariant",
+    "pk": "637fc82b-3b19-4091-a384-15677bd711a1",
+    "fields": {
+        "product": "611263a1-6bb8-4f7b-81bf-5c30ffc7dea7",
+        "size": "M",
+        "stock": "10",
+        "is_deleted": false,
+        "is_default": true
+    }
+},
+{
+    "model": "product.productvariant",
+    "pk": "acd36e69-aa81-4265-ad56-bd0f1ea1109c",
+    "fields": {
+        "product": "fd656454-e6d5-4ced-be66-2bdea7309d49",
+        "size": "M",
+        "stock": "10",
+        "is_deleted": false,
+        "is_default": true
+    }
+},
+{
+    "model": "product.productvariant",
+    "pk": "c2863178-68d0-4a16-900a-85258bfb4ee3",
+    "fields": {
+        "product": "611263a1-6bb8-4f7b-81bf-5c30ffc7dea7",
+        "size": "L",
+        "stock": "20",
+        "is_deleted": false,
+        "is_default": false
+    }
+},
+{
+    "model": "product.productimage",
+    "pk": "2f3b6665-15b4-4938-a891-3e1f5213d252",
+    "fields": {
+        "auto_id": 2,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:55:00.386Z",
+        "date_updated": "2022-04-11T10:55:00.386Z",
+        "is_deleted": false,
+        "product": "fd656454-e6d5-4ced-be66-2bdea7309d49",
+        "image": "product/product_carousel/Mishkath_-__Subject_-_Lessons_QgClW6B.png"
+    }
+},
+{
+    "model": "product.productimage",
+    "pk": "32320e47-a656-401e-9c85-04c1007206fa",
+    "fields": {
+        "auto_id": 1,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:55:00.375Z",
+        "date_updated": "2022-04-11T10:55:00.375Z",
+        "is_deleted": false,
+        "product": "fd656454-e6d5-4ced-be66-2bdea7309d49",
+        "image": "product/product_carousel/Mishkath_-__Subject_-_Lessons.png"
+    }
+},
+{
+    "model": "product.productimage",
+    "pk": "e575f46d-75df-4b77-8c93-c34e0b7cad60",
+    "fields": {
+        "auto_id": 3,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:56:52.277Z",
+        "date_updated": "2022-04-11T10:56:52.277Z",
+        "is_deleted": false,
+        "product": "611263a1-6bb8-4f7b-81bf-5c30ffc7dea7",
+        "image": "product/product_carousel/Mishkath_-_Subject.png"
+    }
+},
+{
+    "model": "product.productimage",
+    "pk": "f04b77eb-dac3-458a-a0ee-f2d574f2c8cb",
+    "fields": {
+        "auto_id": 4,
+        "creator": 1,
+        "updater": 1,
+        "date_added": "2022-04-11T10:56:52.287Z",
+        "date_updated": "2022-04-11T10:56:52.287Z",
+        "is_deleted": false,
+        "product": "611263a1-6bb8-4f7b-81bf-5c30ffc7dea7",
+        "image": "product/product_carousel/Mishkath_-__Subject_-_Lessons_NQq7JPu.png"
+    }
+},
+{
+    "model": "product.sizemeasurementchart",
+    "pk": "2fa9afe1-f4ca-4db1-b136-d8a0878c504f",
+    "fields": {
+        "product_type": "pant",
+        "image": "product/product_size_measurement_chart/Mishkath_-_Subject.png"
+    }
+},
+{
+    "model": "product.sizemeasurementchart",
+    "pk": "ba51939d-b48a-4174-a446-f18114b31028",
+    "fields": {
+        "product_type": "shirt",
+        "image": "product/product_size_measurement_chart/Mishkath_-_Dashboard__1.png"
+    }
+}
+]

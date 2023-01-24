@@ -1,0 +1,150 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Size Chart</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Products</a></li>
+                                    <li class="breadcrumb-item active"> Size Chart</li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                <a class="btn btn-primary btn-sm text-white px-4 d-inline-block"  href="{% url 'product:create_size_chart' %}" ><i class="mdi mdi-plus mr-2"></i>Size Chart</a>
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="row">
+                <div class="col-12">
+                    {% for i in PRODUCT_TYPE_CHOICE %}
+                    <div class="table-responsive" style="float: left;">
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            {% for size in i|load_products:instances %}
+                            {% if forloop.counter == 1 %}
+                            <thead>
+                                <span style="font-size: 16px;text-align: center;font-weight: bold;width: 100%;display: block;">{{size.get_Product_type_display}}</span>
+                            <tr>
+                                <th>size</th>
+                                <th>brand size</th>
+                                {% if size.chest != none %}
+                                <th class="chest">chest (in)</th>
+                                {% endif %}
+                                {% if size.front_length != none %}
+                                <th class="front_length">front length (in)</th>
+                                {% endif %}
+                                {% if size.across_sholder != none %}
+                                <th class="accross_sholder">across shoulder (in)</th>
+                                {% endif %}
+                                {% if size.waist != none %}
+                                <th class="waist">waist</th>
+                                {% endif %}
+                                {% if size.sleeve_length != none %}
+                                <th class="sleeve_length">sleeve length</th>
+                                {% endif %}
+                                {% if size.rise != none %}
+                                <th class="rise">Rise</th>
+                                {% endif %}
+                                {% if size.thigh != none %}
+                                <th class="thigh">thigh</th>
+                                {% endif %}
+                                {% if size.inseam != none %}
+                                <th class="inseam">Inseam (in)</th>
+                                {% endif %}
+                                {% if size.outseam != none %}
+                                <th class="outseam">Outseam (in)</th>
+                                {% endif %}
+                                {% if size.bottom_hem != none %}
+                                <th class="bottom_hem">Bottm Hem (in)</th>
+                                {% endif %}
+                                <th>Action</th> 
+                            </thead>
+                            {% endif %}
+                            <tbody>
+
+                                
+
+                                <tr>
+                                    <td scope="row" data-label="Size">{{size.size}}</td>
+                                    <td data-label=" Brand size">{{size.brand_size}}</td>
+
+                                    {% if size.chest != none %}
+                                    <td class="chest">{{size.chest}}</td>
+                                    {% endif %}
+                                    {% if size.front_length != none %}
+                                    <td class="front_length">{{size.front_length}}</td>
+                                    {% endif %}
+                                    {% if size.across_sholder != none %}
+                                    <td class="accross_sholder">{{size.across_sholder}}</td>
+                                    {% endif %}
+                                    {% if size.waist != none %}
+                                    <td class="waist">{{size.waist}}</td>
+                                    {% endif %}
+                                    {% if size.sleeve_length != none %}
+                                    <td class="sleeve_length">{{size.sleeve_length}}</td>
+                                    {% endif %}
+                                    {% if size.rise != none %}
+                                    <td class="rise">{{size.rise}}</td>
+                                    {% endif %}
+                                    {% if size.thigh != none %}
+                                    <td class="thigh">{{size.thigh}}</td>
+                                    {% endif %}
+                                    {% if size.inseam != none %}
+                                    <td class="inseam">{{size.inseam}}</td>
+                                    {% endif %}
+                                    {% if size.outseam != none %}
+                                    <td class="outseam">{{size.outseam}}</td>
+                                    {% endif %}
+                                    {% if size.bottom_hem != none %}
+                                    <td class="bottom_hem">{{size.bottom_hem}}</td>
+                                    {% endif %}
+                                    <td>                                                       
+                                        <a href="{% url 'product:edit_sizechart' pk=size.pk %}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                        <a data-id="{{ size.pk }}" class="action-button remove redirect" href="{% url 'product:delete_size' pk=size.pk %}" data-text="{{ confirm_delete_message }}" data-title="Are you sure?"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                    </td>
+                                </tr>
+                    {% endfor %}
+                            
+                            </tbody>
+                        </table>                         
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+            <div class="row">
+                <div class="col-lg-12" style="display:flex; flex-wrap:wrap; justify-content:space-between;">
+                    {%for i in image_instances%}
+                    <div class="card mb-4">
+                        <p>{{i.product_type}}</p>
+                        <img src="{{i.image.url}}" alt="banner" style="display: block;width: 100%;max-height: 280px;">
+                        <a data-id="{{ i.pk }}" href="{% url 'product:edit_sizechart_image' pk=i.pk %}" style="position: absolute;top: 15px;right: 55px;background-color: #fff;width: 30px;/* text-align: center; */height: 30px;align-items: center;display: flex;justify-content: center;border-radius: 8px;"><i class="las la-pen text-danger font-18"></i></a>
+                        <a data-id="{{ i.pk }}" class="action-button remove redirect" href="{% url 'product:delete_size_image' pk=i.pk %}" data-text="{{ confirm_delete_message }}" data-title="Are you sure?" style="position: absolute;top: 15px;right: 15px;background-color: #fff;width: 30px;/* text-align: center; */height: 30px;align-items: center;display: flex;justify-content: center;border-radius: 8px;"><i class="las la-trash-alt text-danger font-18"></i></a>
+                    </div>
+                    {%endfor%}
+                </div> <!-- end col -->
+            </div>
+
+
+
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+        

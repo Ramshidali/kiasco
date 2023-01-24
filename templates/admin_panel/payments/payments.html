@@ -1,0 +1,103 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Payments</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Payments</li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto col-sm-2 float-right ml-auto">
+                                <form method="get" action="{% url 'payments:payments' %}">
+                                    <li class="list-inline-item">
+                                        <div class="input-group">
+                
+                                            <input name="q" type="text" placeholder="Search" value="{{ filter_data.q }}"
+                                                class="form-control" />
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-soft-primary btn-sm"><i
+                                                        class="fas fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </form>
+                            </div>
+                            <div class="col-auto align-self-center">
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Amount</th>
+                                <th>Payment type</th>
+                                <th>Order Status</th>
+                                <th>Payment Order ID</th>
+                                <th class="action">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% load el_pagination_tags %}
+                            {% paginate 20 instances %}
+                            {%for instance in instances%}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{instance.order_id}}</td>
+                                <td>{{instance.amount}}</td>
+                                <td>{{instance.payment_type}}</td>
+                                <td>{{instance.order_status}}</td>
+                                <td>{{instance.payment_order_id}}</td>
+                                <td class="action">                                                       
+                                    <a href="{% url 'payments:payment' pk=instance.pk %}" class="mr-2"><i class="las la-eye text-info font-18"></i></a>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                            {% comment %} {% show_pages %} {% endcomment %}
+
+                            </tbody>
+                        </table> 
+                        
+                        {% get_pages %}
+                        <div class="clearfix"></div>
+                        <div class="row pagi my-3">
+                            <div class="col-sm-6 col-xs-6 text-left my-pagina">{% show_pages %}</div>
+                            <div class="col-sm-6 col-xs-6 text-right tot my-pagination align-items-center">
+                                <div class="m-t-10">
+                                    Showing {{title}}
+                                    <span class="current_page_index">{{ pages.current_start_index }}</span> - <span
+                                        class="current_end_status">{{ pages.current_end_index }}</span> of <span
+                                        class="total_count">{{ pages.total_count }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+        

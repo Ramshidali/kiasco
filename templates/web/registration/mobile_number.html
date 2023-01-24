@@ -1,0 +1,16 @@
+{%load static%}
+<div class="signup-box">
+  <a href="" id="back-btn"  class="btn  waves-effect waves-light"><img src="{% static 'web/images/close.svg' %}" alt="image"></a href="{% url 'web:index' %}">
+      <div class="logo">
+        <img src="{% static 'web/images/Kiasco_Logo_white.png' %}" alt="Logo" />
+      </div>
+      <div class="number-box">
+        <label for="mobile_number">mobile number</label>
+        <input type="tel" id="mobile_number" name="phone" maxlength="10" placeholder="Enter mobile number" required/>
+        <p class="required_text" id="required_text_phone" style="display: none; color: red; font-size: 10px; text-align: left; padding-top: 10px;">*required<p>
+
+
+        <button class="signup" data-url="{% url 'web:otp_generation' %}" data-next-url="{% url 'web:customer_join' %}" id="submit_phone">Continue</button>
+      </div>
+
+</div>

@@ -1,0 +1,111 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% load web_templates_tags %}
+{% block content %}
+
+    <section id="spotlight" class="all-order">
+      <div class="wrapper">
+        
+      {% include 'web/includes/profile_nav.html'%}
+        {% if instances %}
+          <div class="all-order-box">
+              <div class="head-box">
+                  <h4>showing all orders</h4>
+                  {% comment %} <span>filter <i class="fas fa-filter"></i></span> {% endcomment %}
+              </div>
+                <ul class="items-container">
+                {% for instance in instances %}
+                    <li>
+                        <div class="rate-box">
+                            <a href="{% url 'web:single_view_order' pk=instance.pk %}">
+                                <div class="left-box">
+                                    <div class="preview">
+                                        <img src="{{ instance.product_varient.product.featured_image.url }}" alt="Items">
+                                    </div>
+                                    <div class="content-text">
+                                        <h4>{{instance.product_varient.product.name}}</h4>
+                                        <span>{{instance.product_varient.product.short_description}}</span>
+                                        <small>size:{{instance.product_varient.size}}</small>
+                                    </div>
+                                </div>
+                                <div class="price">
+                                    <h4>{{instance.subtotal}}</h4>
+                                </div>
+                            </a>
+
+                            {% get_order_delivery_date instance.order.pk instance.product_varient.product.pk as delivery_status %}
+                            <div class="{{delivery_status.class_name}}">
+
+                                <p>{{delivery_status.text}} {{delivery_status.date}} 
+                                {% if delivery_status.status == "delivered" %}
+                                <i class="fas fa-check-circle"></i></p>
+
+                                {% get_is_review instance.product_varient.product.pk request.user as review_status %}
+                                
+                                {% comment %} <span>{{review_status.status}}</span> {% endcomment %}
+
+                                {% if review_status.status %}
+                                {% comment %} <span>{{review_status.rating}}</span> {% endcomment %}
+                                <div class="rating-stars">
+                                    <span {% if review_status.rating >= 1 %} style="color: red;" {% endif %}>☆ </span>
+                                    <span {% if review_status.rating >= 2 %} style="color: red;" {% endif %}>☆ </span>
+                                    <span {% if review_status.rating >= 3 %} style="color: red;" {% endif %}>☆ </span>
+                                    <span {% if review_status.rating >= 4 %} style="color: red;" {% endif %}>☆ </span>
+                                    <span {% if review_status.rating >= 5 %} style="color: red;" {% endif %}>☆ </span>
+                                </div>
+                                {% else %}
+                                <span style="color: red;" class="process {{instance.pk}}modal-toggle" onclick="review_span('{{instance.pk}}')" data-pro_pk="{{instance.product_varient.product.pk}}">Rate and review product</span>
+                                {% endif %}
+                                {% endif %} 
+
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+          </div>
+
+          <div class="modal-pop">
+            <div class="modal-overlay modal-toggle"></div>
+            <div class="modal-wrapper modal-transition">
+                <div class="top-rate">
+                    <h3>Write Review</h3>
+                </div>
+                
+                <div class="bottom-rate">
+                    <form action="{% url 'web:add_review' %}" method="POST" enctype="multipart/form-data" class="ajax redirect">
+                        {% csrf_token %}
+                        <div class="left-rate">
+                            <img src="{{ instance.product_varient.product.featured_image.url }}" alt="Image" />
+                        </div>
+                        <div class="right-rate">
+                            <h5>{{instance.product_varient.product.name}}</h5>
+                            <div class="rating-box">
+                                <div class="star-rating"><s><s><s><s><s></s></s></s></s></s></div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="pro_pk" id="id_pro_pk">
+                        {{form.rating}}
+                        {{form.review}}
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+
+
+
+        {% else %}
+            <div class="empty-cards">
+                <div class="empty-box">
+                <img src="{% static 'web/images/empty-order.png' %}" alt="Image" />
+                <h4>Your didn't purchased yet </h4>
+                <a href="{% url 'web:shop' %}">Purchase Now </a>
+                </div>
+            </div>
+        {% endif %}
+          </div>
+          <!-- main-section-end -->
+{% endblock content %}
+ 

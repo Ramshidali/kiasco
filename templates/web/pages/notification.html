@@ -1,0 +1,69 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- header-end -->
+    <section id="spotlight" class="all-order">
+        <div class="wrapper">
+
+          {% include 'web/includes/profile_nav.html'%}
+
+
+          <div class="all-order-box notification">
+              <div class="head-box">
+                  <h4>All notifications</h4>
+              </div>
+              <ul class="items-container">
+
+                {% for instance in instances %}
+                    <li>
+                        <a href="{% url 'web:single_view_order' pk=instance.pk %}">
+                            <div class="left-box">
+                                <div class="preview">
+                                    <img src="{{instance.product_varient.product.featured_image.url}}" alt="Items">
+                                </div>
+                                <div class="content-text">
+                                    <h4>{{instance.product_varient.product.name}}</h4>
+                                    <span>{{instance.product_varient.product.short_description}}</span>
+                                    <small>size:{{instance.product_varient.size}}</small>
+                                </div>
+                            </div>
+                            {% if instance.order_status == 'pending' %}
+                            <div class="return">
+                                <p style="color: #999;" class="return">despatching soon {{instance.date_updated|date:"M t o"}} <i class="fas fa-check-circle"></i></p>  
+                            </div>
+                            {% endif %}
+                            {% if instance.order_status == 'return' %}
+                            <div class="return">
+                                <p style="color: #FFB419;" class="return">despatching soon {{instance.date_updated|date:"M t o"}} <i class="fas fa-check-circle"></i></p>  
+                            </div>
+                            {% endif %}
+                            {% if instance.order_status == 'shipped' %}
+                            <div class="">
+                                <p style="color: #23C5A0;">shipped on {{instance.date_updated|date:"M t o"}} <i class="fas fa-check-circle"></i></p>  
+                            </div>
+                            {% endif %}
+                            {% if instance.order_status == 'out_of_delivered' %}
+                            <div class="delivery-date">
+                                <p>canceled on {{instance.date_updated|date:"M t o"}} <i class="fas fa-check-circle"></i></p>  
+                            </div>
+                            {% endif %}
+                            {% if instance.order_status == 'delivered' %}
+                            <div class="delivery-date">
+                                <p style="color: #23C5A0;">delivered on {{instance.date_updated|date:"M t o"}} <i class="fas fa-check-circle"></i></p>  
+                            </div>
+                            {% endif %}
+                            {% if instance.order_status == 'cancelled' %}
+                            <div class="delivery-date">
+                                <p style="color: #F61F1F;" class="cancel">canceled on {{instance.date_updated|date:"M t o"}} <i class="fas fa-check-circle"></i></p>  
+                            </div>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+
+                    
+            </ul>
+        </div>
+        </div>
+          <!-- main-section-end -->
+          {% endblock content %}

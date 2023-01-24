@@ -1,0 +1,36 @@
+{% load static %}
+<div class="container-box">
+    <div class="user-detials">
+      <div class="user-profile">
+        <a href="#">
+          <h3><img src="{% static 'web/images/user.png' %}" alt="User-profile" /></h3>
+          <div class="name-box">
+            <h5>hello,</h5>
+            <h6>{{get_user_name.name}}</h6>
+          </div>
+        </a>
+      </div>
+      <ul class="detials-box">
+        <li>
+          <a href="{% url 'web:my_orders' %}" {% if is_my_order %} class="active" {% endif %}
+            >my orders <i class="fas fa-chevron-right"></i
+          ></a>
+        </li>
+        <li>
+          <a href="{% url 'web:profile' %}" {% if is_profile %} class="active" {% endif %}
+          >edit profile <i class="fas fa-chevron-right" ></i
+          ></a>
+        </li>
+        <li>
+          <a href="{% url 'web:view_address' %}" {% if is_address %} class="active" {% endif %}
+            >addresses <i class="fas fa-chevron-right" ></i
+          ></a>
+        </li>
+        <li>
+          <a href="{% url 'web:notifications' %}" {% if is_notification %} class="active" {% endif %}
+            >notifications <i class="fas fa-chevron-right" ></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>

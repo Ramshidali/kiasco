@@ -1,0 +1,56 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% block content %}
+
+    <!-- header-end -->
+    <section id="shop-product">
+      <div class="wrapper">
+        {% if instances %}
+            <div class="head wishlist-headding">
+            <h4>{{page_name}}{% if counts %}<span>({{counts}} items)</span>{% endif %}</h4>
+            </div>
+            
+            <ul>
+            
+            {%for product in instances%}
+            <li>
+                <a href="{% url 'web:product_view' pk=product.product.pk %}">
+                <div class="img-box">
+                    <img src="{{product.product.featured_image.url}}" alt="{{product.product.name}}" />
+                </div>
+                <div class="text-box">
+                    <div class="name">
+                    <h6>{{product.product.name}}</h6>
+                    </div>
+                    <div class="price">
+                    {% comment %} {% get_product_price product.product.pk as price %}
+                        {% if price.is_offer %}
+                        <span>₹ {{price.price}} </span>
+                        <small>₹ {{price.actual_rate}} </small>
+                    {% else %} {% endcomment %}
+                        <span>₹ {{product.product.price|floatformat}} </span>
+                        <small>₹ {{product.product.mrp|floatformat}} </small>
+                    {% comment %} {% endif %} {% endcomment %}
+                    </div>
+                </div>
+                </a>
+            </li>
+            {% endfor %}
+
+            </ul>
+        {% else %}
+            <div class="empty-cards">
+            <div class="empty-box">
+                <img src="{% static 'web/images/empty-whishlist.png' %}" alt="Image" />
+                <h4>Your Wishlist is empty</h4>
+                <a href="{% url 'web:shop' %}">Hey your wishlist is empty add products here.</a>
+            </div>
+            </div>
+        {% endif %}
+        {% include 'includes/pagination.html' %}
+
+      </div>
+    </section>
+    
+{% endblock content %}

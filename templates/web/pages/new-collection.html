@@ -1,0 +1,82 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% load web_templates_tags %}
+{% block content %}
+
+    <section id="shop-product">
+      <div class="wrapper">
+        <div class="head">
+          <h4>products</h4>
+          <div class="selector">
+            <p>Sort By:</p>
+            <form method="get" action="" id="sort_form">
+              <select id="filter_id" name="product_filter" id="filter">
+                  <option value="">Select</option>
+                  {% if not is_category %}
+                      {% for instance_new in category_name %}
+                          <option value="{{instance_new.id}}" selected="{% if sort_query == instance_new.id %}true{% else %}false{% endif %}">{{sort_query}}{{instance_new.name}}</option>
+                      {% endfor %}
+                  {% endif %}
+                  <option value="recommended" {% if sort_query == "recommended" %}selected{% endif %}>RECOMMENDED</option>
+                  <option value="lowest" {% if sort_query == "lowest" %}selected{% endif %}>LOWEST FIRST</option>
+                  <option value="highest" {% if sort_query == "highest" %}selected{% endif %}>HIGHEST FIRST</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        {% if instances %}
+        <ul>
+          {% for new_product in instances|slice:":12"  %}
+          <li>
+            <a href="{% url 'web:product_view' pk=new_product.pk %}">
+              <div class="img-box">
+                <img src="{{new_product.featured_image.url}}" alt="Shop" />
+                {% get_is_varient  new_product.pk as stock_available %}
+                  {% if not stock_available %}
+                  <div class="out_of_stock"><p style="display: block;color: red;">OUT OF STOCK</p></div>
+                  {% endif %}
+              </div>
+              <div class="text-box">
+                <div class="name">
+                  <h6>{{new_product.name}}</h6>
+                  <span><i class="animate {% if new_product.pk in wishlist_items %}fa wishlist-fill {% else %} far {% endif %} fa-heart wishlist_icon {% if request.user.is_authenticated %} add-to-wishlist {% else %} signin {% endif %}" data-url="{% url 'web:add_to_wishlist' %}" data-product={{new_product.pk}} ></i></span>
+                </div>
+                <div class="price">
+                  {% comment %} {% get_product_price new_product.pk as price %}
+                    {% if price.is_offer %}
+                    <span>₹ {{price.price}}</span>
+                    <small>₹ {{price.actual_rate}}</small>
+                  {% else %} {% endcomment %}
+                    <span>₹ {{new_product.price|floatformat}}</span>
+                    <small>₹ {{new_product.mrp|floatformat}}</small>
+                  {% comment %} {% endif %} {% endcomment %}
+                </div>
+              </div>
+            </a>
+            {% get_offer_in_product new_product.pk  as offer %}
+            {%if offer%}
+            <div class="offer-icon">
+              <img src="{%static 'web/images/offer-image.png' %}" alt="Offer">
+            </div>
+            {% endif %}
+
+          </li>
+          {%endfor%}
+        </ul>
+        {% else %}
+          <div class="empty-cards">
+            <div class="empty-box">
+              <img src="{% static 'web/images/empty-product.png' %}" alt="Image" />
+              <h4>Oops </h4>
+              <p>There's no products available here.</p>
+            </div>
+          </div>
+        {% endif %}
+        {% include 'includes/pagination.html' %}
+
+        
+      </div>
+    </section>
+
+{% endblock content %}

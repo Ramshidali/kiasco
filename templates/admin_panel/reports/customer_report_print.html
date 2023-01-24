@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load report_template_tags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{% static 'admin_panel/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <title>Print | {{title}}</title>
+    <script src="{% static 'vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+</head>
+<body onload="window.print()">
+    <section id='content' class="content">
+        <section class="wrapper">
+            <div class="c-header">
+                <img src="{% static 'admin_panel/assets/images/kiasco-logo/Kiasco Logo 2.svg' %}" alt="logo-small" class="logo-sm" style="height: 50px;">                
+                <h4 class="mt-2">{{title}}</h4>
+            </div>
+            <div>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Total Orders</th>
+                            <th scope="col">Completed Orders</th>
+                            <th scope="col">Pending Orders</th>
+                            <th scope="col">Shipped Orders</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in instances %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{instance.name}}</td>
+                            <td>{{instance.phone}}</td>
+                            <td>{% get_total_orders instance.pk %}</td>
+                            <td>{% get_completed_orders instance.pk %}</td>
+                            <td>{% get_pending_orders instance.pk %}</td>
+                            <td>{% get_shipped_orders instance.pk %}</td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+    
+    <style>
+        .wrapper{
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .c-header{
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h4{
+            text-align: center;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        tr td,tr th{
+            padding: 5px;
+            border: 2px solid #ccc
+        }
+        tfoot th:not(:first-child){
+            text-align: right;
+        }
+    </style>
+</body>
+</html>

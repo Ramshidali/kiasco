@@ -1,0 +1,183 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+{% load web_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Locations</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Locations </li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto col-sm-2 float-right ml-auto">
+                                <form method="get" action="{% url 'general:locations' %}">
+                                    <li class="list-inline-item">
+                                        <div class="input-group">
+                
+                                            <input name="q" type="text" placeholder="Search" value="{{ filter_data.q }}"
+                                                class="form-control" />
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-soft-primary btn-sm"><i
+                                                        class="fas fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </form>
+                            </div>
+                            <div class="col-auto align-self-center">
+                                {% if not location_status %}
+                                <a class="btn btn-primary btn-sm text-white px-4 d-inline-block"  href="{% url 'general:create_location' %}" ><i class="mdi mdi-plus mr-2"></i>Location</a>
+                                {% endif %}
+                            </div> 
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <div class="card-body">
+                <div class="row">
+                    {% if instances %}
+                    <div class="col-12">                                
+                        <div class="table-responsive" >
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    
+                                    <tr>
+                                        <th>SL.No</th>
+                                        <th>Area</th>
+                                        <th>Delivery Charge</th>
+                                        <th>Min Day of Delivery</th>
+                                        <th class="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% load el_pagination_tags %}
+                                    {% paginate 50 instances %}
+                                    {% for instance in instances %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{instance.get_area_display}}</td>                                            
+                                        <td>{{instance.delivery_charge}}</td>
+                                        <td>{{instance.min_day_of_delivery}}</td>
+                                            
+                                        <td class="action">
+                                            <a href="{% url 'general:edit_location' pk=instance.pk %}"><i class="las la-pen text-info font-18"></i></a>
+                                            <a class="action-button remove btn btn-default btn-icon" style="padding:0;"
+                                            data-id="{{instance.pk}}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" href="{% url 'general:delete_location' pk=instance.pk %}"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                        
+                                </tbody>
+                            </table>
+                            {% get_pages %}
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-lg-12 bottom-content" id="content-pagination">
+                                    <div class="left">
+                                        <h6>Showing {{title}}
+                                        <span class="current_page_index">{{ pages.current_start_index }}</span> - <span
+                                        class="current_end_status">{{ pages.current_end_index }}</span> of <span
+                                        class="total_count">{{ pages.total_count }}</span>
+                                        </h6>
+                                    </div>
+                                    <div class="right">
+                                        <div class="col-sm-12 col-xs-12 my-pagination">{% show_pages %}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end /table-->
+                        </div>
+                        <!--end /tableresponsive-->
+                                <!-- pagination -->
+                    </div> <!-- end col -->
+                    {% endif %}
+                </div>
+            </div>
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+{% block static %}
+<style>
+    #content-pagination {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    #content-pagination div.left {
+        width: 20%;
+    }
+    
+    #content-pagination div.left h6 {
+        color: #495057;
+        font-size: 13px;
+    }
+    
+    #content-pagination div.right {
+        display: flex;
+        justify-content: flex-end;
+        /* min-width: 18%; */
+    }
+    
+    #content-pagination div.right div.my-pagination {
+        display: flex;
+        justify-content: space-between;
+    }
+    #content-pagination div.right div.my-pagination a {
+        display: flex;
+        align-items: center;
+    }
+    #content-pagination div.right div.my-pagination .endless_separator{
+        display: flex;
+        align-items: center;
+        margin: 0 5px;
+    }
+    #content-pagination div.right div.my-pagination .endless_page_link[rel="prev"],
+    #content-pagination div.right div.my-pagination .endless_page_link[rel="next"] {
+        background-color: #fff;
+        border: 1px solid #109CF1;
+        color:#109CF1;
+        font-weight: 600;
+        font-size: 13px;
+        border-radius: 5px;
+        padding: 5px 20px;
+        margin: 0 5px;
+        white-space: nowrap;
+    }
+    #content-pagination div.right div.my-pagination .endless_page_link:not([rel="prev"],[rel="next"]){
+        padding: 5px 10px;
+        border: 1px solid transparent;
+        color:#707683;
+    }
+    #content-pagination div.right div.my-pagination .endless_page_link:not([rel="prev"],[rel="next"]):hover {
+        border: 1px solid #109CF1;
+        /* padding: 5px 10px; */
+        border-radius: 3px;
+        opacity: 1;
+        background: #fff;
+    }
+    
+    .endless_page_current {
+        background-color: #109CF1;
+        color: #fff;
+        padding: 8px 10px;
+        border-radius: 3px;
+        margin:0 5px;
+    }
+
+</style>
+{% endblock %}
+        

@@ -1,0 +1,185 @@
+
+{% load static %}
+<div class="left-sidenav">
+    <!-- LOGO -->
+    <div class="brand">
+        <a href="{% url 'app' %}" class="logo">
+            <span>
+                <img src="{% static 'admin_panel/assets/images/kiasco-logo/Kiasco Logo 2.svg' %}" alt="logo-small" class="logo-sm" style="height: 50px;">
+            </span>
+            {% comment %} <span>
+                <img src="{% static 'admin_panel/assets/images/kiasco-logo/Kiasco Logo 2.svg' %}" alt="logo-large" class="logo-lg logo-light">
+                <img src="{% static 'admin_panel/assets/images/kiasco-logo/Kiasco Logo 2.svg' %}" alt="logo-large" class="logo-lg logo-dark">
+            </span> {% endcomment %}
+        </a>
+    </div>
+    <!--end logo-->
+    <div class="menu-content h-100" data-simplebar>
+        <ul class="metismenu left-sidenav-menu">
+            <li class="menu-label mt-0">Main</li>
+            <li>
+                <a href="{% url 'app' %}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"><i class="mdi mdi-chevron-down"></i></span></a>
+            </li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="users" class="align-self-center menu-icon"></i><span>Customers</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'customers:customers' %}"><i class="ti-control-record"></i>Customers</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="layers" class="align-self-center menu-icon"></i><span>Products</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                     {% comment %} <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:product_category' %}"><i class="ti-control-record"></i>Category</a>
+                        <a class="nav-link" href="{% url 'product:create_product_category' %}"><i class="ti-plus"></i></a>
+                    </li> {% endcomment %}
+
+                    {% comment %} <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:product_type' %}"><i class="ti-control-record"></i>Product Type</a>
+                        <a class="nav-link" href="{% url 'product:create_product_type' %}"><i class="ti-plus"></i></a>
+                    </li> {% endcomment %}
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:product_list' %}"><i class="ti-control-record"></i>Products</a>
+                        <a class="nav-link" href="{% url 'product:create_product' %}"><i class="ti-plus"></i></a>
+                    </li>
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:size_chart' %}"><i class="ti-control-record"></i>Size Chart</a>
+                        <a class="nav-link" href="{% url 'product:create_size_chart' %}"><i class="ti-plus"></i></a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="box" class="align-self-center menu-icon"></i><span>Orders</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'orders:orders' %}"><i class="ti-control-record"></i>Orders</a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'payments:payments' %}"><i class="ti-control-record"></i>Payments</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="menu" class="align-self-center menu-icon"></i><span>General</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'general:locations' %}"><i class="ti-control-record"></i>Location</a>
+                        {% if not location_status %}
+                        <a class="nav-link" href="{% url 'general:create_location' %}"><i class="ti-plus"></i></a>
+                        {% endif %}
+                    </li>
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:meta_keyword' %}"><i class="ti-control-record"></i>Meta Keywords</a>
+                        <a class="nav-link" href="{% url 'product:create_meta_keyword' %}"><i class="ti-plus"></i></a>
+                    </li>
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'general:banners' %}"><i class="ti-control-record"></i>Banners</a>
+                        <a class="nav-link" href="{% url 'general:create_banner' %}"><i class="ti-plus"></i></a>
+                    </li>
+
+
+                    {% comment %}<li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="#"><i class="ti-control-record"></i>Contry</a>
+                        <a class="nav-link" href="#"><i class="ti-plus"></i></a>
+                    </li>
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="#"><i class="ti-control-record"></i>Courses</a>
+                        <a class="nav-link" href="#"><i class="ti-plus"></i></a>
+                    </li> {% endcomment %}
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="tag" class="align-self-center menu-icon"></i><span>Offers</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'offers:offers' %}"><i class="ti-control-record"></i>Offer</a>
+                        <a class="nav-link" href="{% url 'offers:create_offer' pk='' %}"><i class="ti-plus"></i></a>
+                    </li>
+
+                    {% comment %} <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:meta_keyword' %}"><i class="ti-control-record"></i>Meta Keywords</a>
+                        <a class="nav-link" href="{% url 'product:create_meta_keyword' %}"><i class="ti-plus"></i></a>
+                    </li> {% endcomment %}
+
+                    {% comment %} <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="#"><i class="ti-control-record"></i>Grade Batch</a>
+                        <a class="nav-link" href="#"><i class="ti-plus"></i></a>
+                    </li>
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="#"><i class="ti-control-record"></i>Contry</a>
+                        <a class="nav-link" href="#"><i class="ti-plus"></i></a>
+                    </li>
+
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="#"><i class="ti-control-record"></i>Courses</a>
+                        <a class="nav-link" href="#"><i class="ti-plus"></i></a>
+                    </li> {% endcomment %}
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="book-open" class="align-self-center menu-icon"></i><span>Reports</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'reports:product_report' %}"><i class="ti-control-record"></i>Product Report</a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'reports:order_report' %}"><i class="ti-control-record"></i>Order Report</a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'reports:payment_report' %}"><i class="ti-control-record"></i>Payment Report</a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'reports:customer_report' %}"><i class="ti-control-record"></i>Customer Report</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="book-open" class="align-self-center menu-icon"></i><span>Website</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <!-- <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'reports:product_report' %}"><i class="ti-control-record"></i>Product Report</a>
+                    </li> -->
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'general:update_contacts' %}"><i class="ti-control-record"></i>Update contacts</a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);"><i class="ti-control-record"></i>About <span class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                            <li class="nav-item d-flex justify-content-between">
+                                <a class="nav-link" href="{% url 'web:about_description' %}"><i class="ti-control-record"></i>Description</a>
+                            </li>
+                            <li class="nav-item d-flex justify-content-between">
+                                <a class="nav-link" href="{% url 'web:about_gallerys' %}"><i class="ti-control-record"></i>Gallery</a>
+                                <a class="nav-link" href="{% url 'web:create_about_gallery' %}"><i class="ti-plus"></i></a>
+                            </li>
+                            <li class="nav-item d-flex justify-content-between">
+                                <a class="nav-link" href="{% url 'web:about_customer_reviews' %}"><i class="ti-control-record"></i>Customer review</a>
+                                <a class="nav-link" href="{% url 'web:create_about_customer_review' %}"><i class="ti-plus"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- header-end -->
+    <section id="spotlight" class="all-order">
+        <div class="wrapper">
+
+          {% include 'web/includes/profile_nav.html'%}
+
+          <section id="address" class="profile-address">
+            <div class="wrapper">
+              <div class="address-container">
+                <div class="address-head">
+                  <h4>Manage address</h4>
+                  <ul>
+                      <li class="add-more" id="addAddress">
+                      <a href="#">
+                        <span><i class="fas fa-plus"></i></span>
+                        <small>add new address</small>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="full-box">
+                  <ul class="address-box">
+
+                    {% for address in address_instance %}
+                      <li>
+                        <div class="select">
+                          <input type="radio" name="radAnswer" id="address{{address.pk}}radio" data-pk="{{address.pk}}" required />
+                        </div>
+                        <div class="text-box">
+                          <h5>{{address.name}}</h5>
+                          <p>
+                            {{address.address}},{{address.locality}},
+                            Pin : {{address.pincode}},{{address.city}},{{address.state}}
+                          </p>
+                          <span>mobile : {{address.phone}}</span>
+                        </div>
+                        <div class="edit-box">
+                          <a href="javascript:void(0)"
+                          data-name="{{address.name}}"
+                          data-phone="{{address.phone}}"
+                          data-address="{{address.address}}"
+                          data-locality="{{address.locality}}"
+                          data-pincode="{{address.pincode}}"
+                          data-city="{{address.city}}"
+                          data-state="{{address.state}}"
+
+                          data-url="{% url 'web:edit_address' pk=address.pk %}"
+                          class="button" id="edit_address_button">edit</a>
+                        </div>
+                      </li>
+                    {% endfor %}
+
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+        </section>
+            </div>
+    </section>
+          <!-- main-section-end -->
+    
+          <div class="add-address">
+            <div class="adding-page">
+              <div class="head">
+                <h4>add new address</h4>
+                <span class="close-address"><a href="#"><i class="fas fa-times"></i></a></span>
+              </div>
+              <form action="{% url 'web:view_address' %}" method="post" class="ajax redirect address_form" >
+                {% csrf_token %}  
+                <input type="hidden" data-pincheckurl="{% url 'web:check_pincode' %}" id="pin-checkurl">
+                {{form.name}}
+                {{form.phone}}
+                <div>
+                  {{form.pincode}}
+                  <p class="pin_is_available" style="display: none;"></p>
+                </div>
+                {{form.locality}}
+                {{form.city}}
+                {{form.state}}
+                {{form.address}}
+                <br>
+                <input type="submit" value="Add Address" class="btn btn-soft-primary btn-sm waves-effect waves-light" id="button submit">
+              </form>
+            </div>
+          </div>
+
+<!-- success-tick -->
+     <section class="success" id="address_success">
+      <div class="head closer-head">
+        <span class="close"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="tick-box">
+        <h4><img src="{% static 'web/images/verification-success.png' %}" alt="Success" /></h4>
+        <h3 id="title"></h3>
+        <p id="profile-sweet-message"></p>
+      </div>
+    </section>
+
+{% endblock content %}

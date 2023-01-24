@@ -1,0 +1,338 @@
+{% load static %}
+
+{%if home%}
+<div class="login-page">
+  <span class="overlay"></span>
+  <div class="modal-container">
+
+    <!--login section-->
+    {%include 'web/registration/login.html' %}
+    <!--end login section-->
+
+    <!--login section-->
+    {%include 'web/registration/registration.html' %}
+    <!--end login section-->
+
+    <!-- mobile section-->
+    {%include 'web/registration/mobile_number.html' %}
+    <!--end otp section-->
+
+    <!--otp section-->
+    {%include 'web/registration/otp.html' %}
+    <!--end otp section-->
+
+    <!--forgot password-->
+    {%include 'web/registration/forget_password.html' %}
+    <!--end forgot section-->
+
+  </div>
+{% comment %} </span> {% endcomment %}
+</div>
+<section id="home">
+    <header>
+      <div class="wrapper">
+        <div class="left-box">
+          <div class="logo">
+            <h1>
+              <a href="{% url 'web:index' %}"
+                ><img src="{% static 'web/images/Kiasco Logo 2.svg' %}" alt="Logo"
+              /></a>
+            </h1>
+          </div>
+          <ul class="nav-box">
+            <li><a class="{% if is_home %} active {% endif %}" href="{% url 'web:index' %}" >Home</a></li>
+            <li><a class="{% if is_shop %} active {% endif %}" href="{% url 'web:shop' %}">Shop</a></li>
+            <li><a class="{% if is_new %} active {% endif %}" href="{% url 'web:new_collection' %}">New Collection</a></li>
+
+            {% for category in categories %}
+            <li><a class="{% if is_category and category_pk|safe == category.pk|safe %} active {% endif %}"    href="{% url 'web:show_all_product' pk=category.pk %}">{{category.name}}</a></li>
+            {% endfor %}
+
+            <li><a href="#contact">contact us</a></li>
+            <li><a href="{% url 'web:about_us' %}">About us</a></li>
+          </ul>
+        </div>
+        <form method="get" action="{% url 'web:shop' %}" class="mobile-search">
+            <input type="text"  name="q"  id="search-box_mobile"   value="{{ filter_data.q }}" placeholder="Search..."   class="form-control"   />
+            <span class="input-group-append">
+                <button type="button" class="btn btn-soft-primary btn-sm">
+                    <i class="fas fa-search"></i>
+                </button>
+            </span>
+        </form>
+        <div class="right-box">
+            <form method="get" action="{% url 'web:shop' %}">
+                <input type="text"  name="q"  id="search-box"   value="{{ filter_data.q }}" placeholder="Search..."   class="form-control"   />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-soft-primary btn-sm">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </span>
+            </form>
+          <ul>
+            {% if is_customer %}
+            <li class="user">
+              <a href="javascript:void(0)"
+                ><img src="{% static 'web/images/profile.svg' %}" alt="Profile"
+              /></a>
+            </li>
+            <li>
+              <a href="{% url 'web:view_wishlist' %}"
+                ><img src="{% static 'web/images/wishlist.svg' %}" alt="Whishlist"
+              /></a>
+            </li>
+            <li>
+              <a href="{% url 'web:view_cart' %}"
+                ><img src="{% static 'web/images/shopping-bag.svg' %}" alt="Cart"
+              /></a>
+            </li>
+            {% else %}
+            <li class="signin">
+              <a href="javascript:void(0)"
+                ><img src="{% static 'web/images/login-30.png' %}" alt="Login" class="signin"
+              /></a>
+            </li>
+            {% endif %}
+					{% comment %} {% if request.user.is_authenticated %}
+
+            {% endif %} {% endcomment %}
+          </ul>
+          <div class="drop-down">
+            <span><a href="{% url 'web:profile' %}">My profile</a></span>
+            <span><a href="{% url 'web:my_orders' %}">Orders</a></span>
+            <span><a href="{% url 'web:notifications' %}">Notifications</a></span>
+            <span><a href="{% url 'web:logout' %}">Log out</a></span>
+          </div>
+        </div>
+        <!-- mobile-menu -->
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="mobile-container">
+        <ul class="nav-box">
+          <li><a href="{% url 'web:index' %}" class="active">home</a></li>
+          <li><a href="{% url 'web:shop' %}">shop</a></li>
+          <li><a href="{% url 'web:new_collection' %}">new collection</a></li>
+
+          {% for category in categories %}
+          <li><a href="{% url 'web:show_all_product' pk=category.pk %}">{{category.name}}</a></li>
+          {% endfor %}
+          <li><a href="#contact">contact us</a></li>
+        </ul>
+        <ul class="user-toggle">
+          {% if is_customer %}
+          <li class="user" onclick="mobiDrop()">
+            <a href="javascript:void(0)"
+              ><img src="{% static 'web/images/profile.svg' %}" alt="Profile"
+            /></a>
+          </li>
+          <li>
+            <a href="{% url 'web:view_wishlist' %}"
+              ><img src="{% static 'web/images/wishlist.svg' %}" alt="Whishlist"
+            /></a>
+          </li>
+          <li>
+            <a href="{% url 'web:view_cart' %}"
+              ><img src="{% static 'web/images/shopping-bag.svg' %}" alt="Cart"
+            /></a>
+          </li>
+          {% else %}
+          <li class="signin" onclick="login()">
+            <a href="javascript:void(0)"
+              ><img src="{% static 'web/images/login-30.png' %}" alt="Login" class="signin"
+            /></a>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="drop-down">
+          <span><a href="{% url 'web:profile' %}">My profile</a></span>
+            <span><a href="{% url 'web:my_orders' %}">Orders</a></span>
+            <span><a href="{% url 'web:notifications' %}">Notifications</a></span>
+            <span><a href="{% url 'web:logout' %}">Log out</a></span>
+        </div>
+      </div>
+    </header>
+    <main class="spotlight-slider">
+      <!--spotlight-start-->
+        <div class="wrapper spotlight-image img1">
+            <!-- <img src="{% static 'web/images/bg1.jpeg' %}" alt=""> -->
+          </div>
+        <div class="wrapper spotlight-image img2">
+            <!-- <img src="{% static 'web/images/bg1.jpeg' %}" alt=""> -->
+      </div>
+        <div class="wrapper spotlight-image img3">
+            <!-- <img src="{% static 'web/images/bg1.jpeg' %}" alt=""> -->
+          </div>
+        <div class="wrapper spotlight-image img4">
+            <!-- <img src="{% static 'web/images/bg1.jpeg' %}" alt=""> -->
+      </div>
+          <!--spotlight-end-->
+    </main>
+  </section>
+
+  {% else %}
+
+  <header class="alter">
+    <div class="wrapper">
+      <div class="left-box">
+        <div class="logo">
+          <h1>
+            <a href="{% url 'web:index' %}"
+                ><img src="{% static 'web/images/Kiasco Logo 2.svg' %}" alt="Logo"
+              /></a>
+            </h1>
+          </div>
+          <ul class="nav-box">
+            <li><a class="{% if is_home %} active {% endif %}"  href="{% url 'web:index' %}" class="active">home</a></li>
+            <li><a class="{% if is_shop %} active {% endif %}" href="{% url 'web:shop' %}">shop</a></li>
+            <li><a class="{% if is_new %} active {% endif %}" href="{% url 'web:new_collection' %}">new collection</a></li>
+
+            {%for category in categories%}
+            <li><a class="{% if is_category and category_pk|safe == category.pk|safe %} active {% endif %}"  href="{% url 'web:show_all_product' pk=category.pk %}">{{category.name}}</a></li>
+            {% endfor %}
+
+            <li><a href="#contact">contact us</a></li>
+            <li><a href="{% url 'web:about_us' %}">About us</a></li>
+          </ul>
+        </div>
+        <form method="get" action="{% url 'web:shop' %}" class="mobile-search">
+            <input type="text"  name="q"  id="search-box_mobile"   value="{{ filter_data.q }}" placeholder="Search..."   class="form-control"   />
+            <span class="input-group-append">
+                <button type="button" class="btn btn-soft-primary btn-sm">
+                    <i class="fas fa-search"></i>
+                </button>
+            </span>
+        </form>
+        <div class="right-box">
+            <form method="get" action="{% url 'web:shop' %}">
+                <input type="text"  name="q"  id="search-box"   value="{{ filter_data.q }}" placeholder="Search..."   class="form-control"   />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-soft-primary btn-sm">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </span>
+            </form>
+          <ul>
+            {% if is_customer %}
+            <li class="user">
+              <a href="javascript:void(0)"
+                ><img src="{% static 'web/images/profile.svg' %}" alt="Profile"
+              /></a>
+            </li>
+            <li>
+              <a href="{% url 'web:view_wishlist' %}"
+                ><img src="{% static 'web/images/wishlist.svg' %}" alt="Whishlist"
+              /></a>
+            </li>
+            <li>
+              <a href="{% url 'web:view_cart' %}"
+                ><img src="{% static 'web/images/shopping-bag.svg' %}" alt="Cart"
+              /></a>
+            </li>
+            {% else %}
+            <li class="signin">
+              <a href="javascript:void(0)"
+                ><img src="{% static 'web/images/login-30.png' %}" alt="Login" class="signin"
+              /></a>
+            </li>
+            {% endif %}
+          </ul>
+          <div class="drop-down">
+            <span><a href="{% url 'web:profile' %}">My profile</a></span>
+            <span><a href="{% url 'web:my_orders' %}">Orders</a></span>
+            <span><a href="{% url 'web:notifications' %}">Notifications</a></span>
+            <span><a href="{% url 'web:logout' %}">Log out</a></span>
+          </div>
+        </div>
+        <!-- mobile-menu -->
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="mobile-container">
+        <ul class="nav-box">
+          <li><a href="{% url 'web:index' %}" class="active">home</a></li>
+          <li><a href="{% url 'web:shop' %}">shop</a></li>
+          <li><a href="{% url 'web:new_collection' %}">new collection</a></li>
+
+          {% for category in categories %}
+          <li><a href="{% url 'web:show_all_product' pk=category.pk %}">{{category.name}}</a></li>
+          {% endfor %}
+          <li><a href="#contact">contact us</a></li>
+          <li><a href="{% url 'web:about_us' %}">About us</a></li>
+        </ul>
+        <ul class="user-toggle">
+          <li class="user" onclick="mobiDrop()">
+            <a href="javascript:void(0)"
+              ><img src="{% static 'web/images/profile.svg' %}" alt="Profile"
+            /></a>
+          </li>
+          <li>
+            <a href="{% url 'web:view_wishlist' %}"
+              ><img src="{% static 'web/images/wishlist.svg' %}" alt="Whishlist"
+            /></a>
+          </li>
+          <li>
+            <a href="{% url 'web:view_cart' %}"
+              ><img src="{% static 'web/images/shopping-bag.svg' %}" alt="Cart"
+            /></a>
+          </li>
+          <li class="signin" onclick="login()">
+            <a href="javascript:void(0)"
+              ><img src="{% static 'web/images/login-30.png' %}" alt="Login" class="signin"
+            /></a>
+          </li>
+        </ul>
+        <div class="drop-down">
+          <span><a href="{% url 'web:profile' %}">My profile</a></span>
+          <span><a href="{% url 'web:my_orders' %}">Orders</a></span>
+          <span><a href="{% url 'web:notifications' %}">Notifications</a></span>
+          <span><a href="{% url 'web:logout' %}">Log out</a></span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+  <main>
+    <div class="whatsapp-chat">
+      <a href="{{contacts_detail.whatsapp_link}}" target="_blank">
+        <img src="{% static 'web/images/whatsapp-chat.svg' %}" alt="Whats"/>
+      </a>
+    </div>
+    <div class="login-page">
+      <span class="overlay">
+      <div class="modal-container">
+        <!--login section-->
+
+        {%include 'web/registration/login.html' %}
+
+        <!--end login section-->
+
+        <!--login section-->
+
+        {%include 'web/registration/registration.html' %}
+
+        <!--end login section-->
+        <!-- mobile section-->
+
+        {%include 'web/registration/mobile_number.html' %}
+
+        <!--end otp section-->
+        <!--otp section-->
+
+        {%include 'web/registration/otp.html' %}
+
+        <!--end otp section-->
+      </div>
+    </span>
+    </div>
+</main>
+
+
+
+  {% endif %}

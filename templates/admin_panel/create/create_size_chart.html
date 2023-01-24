@@ -1,0 +1,355 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">{{page_title}}</h4>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!-- end page-title-box -->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+                <div class="row">
+                    <div class="col-12">
+                        <form action="{{url}}" method="POST" enctype="multipart/form-data" class="ajax redirect">
+                            {% csrf_token %}   
+                            
+                            <label for="projectName">Product Type : </label>
+
+                            <select class="select2 form-control mb-3 custom-select" id="product_type" onchange="ProductType()" name="product_type" style="width: 100%; height:36px;">
+                                    
+                                <option value="">Select Product Type</option>
+                                {% for type in product_type %}
+                                    <option value="{{type.key}}">{{type.value}}</option>
+                                {% endfor %}
+                                    
+                            </select>        
+                            
+                            <div class="card ordinary-variant-card" style="overflow-x: scroll; width: 100%;">
+                                <div class="table-responsive card-body add_item_container product_variation_formset">
+                                    
+                                    <!--div table-->
+                                    <div>
+                                        <table id="data-table-basic" class="table table-striped table-vmiddle">
+                                            <thead>
+                                                <tr>
+                                                    <th data-column-id="image">Product Size Chart</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th class="brandsize">Brand Size</th>
+                                                <th class="size">Size</th>
+                                                <th class="chest">Chest</th>
+                                                <th class="front_length">Front Length</th>
+                                                <th class="accross_sholder">Across Sholder</th>
+                                                <th class="waist">Waist</th>
+                                                <th class="sleeve_length">Sleave Length</th>
+                                                <th class="outseam">Outseam</th>
+                                                <th class="inseam">Inseam</th>
+                                                <th class="bottom_hem">BottomHem</th>
+                                                <th class="rise">Rise</th>
+                                                <th class="thigh">Thigh</th>
+
+                                                {% for item in size_chart_formset.forms %}
+                                                <tr class="form_set_row product_variation_formset">
+                                                    {{item.id}}
+                                                    <td class="brandsize">
+                                                        <span class="is_default">
+                                                            {{ item.brand_size }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="size">
+                                                        <span class="order_request_qty">
+                                                            {{ item.size }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="chest">
+                                                        <span class="order_request_qty">
+                                                            {{ item.chest }}
+                                                        </span>
+                                                    </td> 
+                                                    <td class="front_length">
+                                                        <span class="order_request_qty">
+                                                            {{ item.front_length }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="accross_sholder">
+                                                        <span class="order_request_qty">
+                                                            {{ item.across_sholder }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="waist">
+                                                        <span class="order_request_qty">
+                                                            {{ item.waist }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="sleeve_length">
+                                                        <span class="order_request_qty">
+                                                            {{ item.sleeve_length }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="outseam">
+                                                        <span class="order_request_qty">
+                                                            {{ item.outseam }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="inseam">
+                                                        <span class="order_request_qty">
+                                                            {{ item.inseam }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="bottom_hem">
+                                                        <span class="order_request_qty">
+                                                            {{ item.bottom_hem }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="rise">
+                                                        <span class="order_request_qty">
+                                                            {{ item.rise }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="thigh">
+                                                        <span class="order_request_qty">
+                                                            {{ item.thigh }}
+                                                        </span>
+                                                    </td>
+
+                                                    
+                                                    <td class="delete">{% if item.instance.pk %}{{ item.DELETE }}{% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        {{ size_chart_formset.management_form }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body bootstrap-select-1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="{{ form.cover_image.id_for_label }}">
+                                                    Images
+                                                </label>
+                                                {{image_form.image}}
+                                            </div>
+                                        </div><!-- end col -->                                               
+                                    </div><!-- end row --> 
+                                </div><!-- end card-body --> 
+                            </div> <!-- end card -->
+                        
+                            <button type="submit" id="submit" class="btn btn-soft-primary btn-sm waves-effect waves-light" id="sa-mixin">Submit</button>
+                            <button type="button" onclick="window.history.back()" class="btn btn-soft-danger btn-sm">Cancel</button>
+                        
+                        </form>  <!--end form-->  
+
+                    </div> <!-- end col -->
+                </div> <!-- end row --> 
+        </div><!-- container -->
+
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+
+{% block static %}
+    {% load static %}
+    <!-- stylessssssssssss -->
+    {{form.media}}
+    <style>
+        .page-wrapper{
+            width: -webkit-fill-available !important;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .text-area{
+            height: 150px !important;   
+        }
+        .select2-container--default{
+            width: 100%;
+        }
+        .select2-container .select2-selection--single {
+            height: calc(2.5em + .75rem + 2px);
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #e3ebf6;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 32px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            margin-top: 8px;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            color: #000;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #e3ebf6;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border: solid rgba(23,97,253,0.5) 1px;
+        }
+
+        .form-control {
+            height: calc(2.8em + .75rem + 2px);
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            color: #000;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #e3ebf6;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border: solid rgba(23,97,253,0.5) 1px;
+        }
+
+        .dynamic-formset-add td{
+            text-align: center !important;
+        }
+    </style>
+    <script type="text/javascript" src="{% static 'assets/js/jquery.formset.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.product_variation_formset table tr.form_set_row').formset({
+                prefix: '{{ size_chart_formset.prefix }}',
+                formCssClass: 'dynamic-formset',
+
+                'added': function (row) {
+                    $('#product_type').trigger('change')
+                },
+            });
+            
+        });
+    </script>
+
+
+    <!-- <script>
+    function productType() {
+        console.log("hhhhhhhhhhhhhhhhhhhhhh");
+        value = $(this).val()
+        console.log(value);
+}
+    function productType() {
+            let e = document.getElementById("product_type");
+            let type = e.value;
+
+            let url = $("#product_type").attr("data-url");
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                data: {
+                    type:type,
+                },
+        
+                success: function (data) {
+                    console.log(data)
+                },
+        
+                error: function (data) {
+                    console.log("errrorrrr");
+                },
+            });
+        }
+    </script> -->
+
+    <script>
+        function ProductType() {
+            value = $("#product_type").val()    
+            console.log(value);
+
+            if (value == "shirt") {
+                console.log("shirt")
+                $(".brandsize").css({display: "",});
+                $(".size").css({display: "",});
+                $(".chest").css({display: "",});
+                $(".front_length").css({display: "",});
+                $(".accross_sholder").css({display: "",});
+                $(".waist").css({display: "",});
+                $(".sleeve_length").css({display: "",});
+                $(".outseam").css({display: "none",});
+                $(".inseam").css({display: "none",});
+                $(".bottom_hem").css({display: "none",});
+                $(".rise").css({display: "none",});
+                $(".thigh").css({display: "none",});
+            }
+            if (value == "pant") {
+                console.log("pant")
+
+                $(".brandsize").css({display: "",});
+                $(".size").css({display: "",});
+                $(".waist").css({display: "",});
+                $(".outseam").css({display: "",});
+                $(".inseam").css({display: "",});
+                $(".bottom_hem").css({display: "",});
+                $(".rise").css({display: "",});
+                $(".thigh").css({display: "",});
+                $(".chest").css({display: "none",});
+                $(".front_length").css({display: "none",});
+                $(".sleeve_length").css({display: "none",});
+                $(".accross_sholder").css({display: "none",});
+            }
+            if (value == "boxer") {
+                console.log("boxer")
+
+                $(".brandsize").css({display: "",});
+                $(".size").css({display: "",});
+                $(".waist").css({display: "",});
+                $(".outseam").css({display: "",});
+                $(".inseam").css({display: "",});
+                $(".rise").css({display: "",});
+                $(".thigh").css({display: "",});
+                $(".chest").css({display: "none",});
+                $(".bottom_hem").css({display: "none",});
+                $(".front_length").css({display: "none",});
+                $(".sleeve_length").css({display: "none",});
+                $(".accross_sholder").css({display: "none",});
+            }
+            if (value == "t_shirt") {
+                console.log("t_shirt");
+        
+                $(".brandsize").css({ display: "" });
+                $(".size").css({ display: "" });
+                $(".chest").css({ display: "" });
+                $(".waist").css({ display: "" });
+                $(".accross_sholder").css({ display: "" });
+                $(".sleeve_length").css({ display: "" });
+                $(".front_length").css({ display: "" });
+                $(".outseam").css({ display: "none" });
+                $(".inseam").css({ display: "none" });
+                $(".rise").css({ display: "none" });
+                $(".thigh").css({ display: "none" });
+                $(".bottom_hem").css({ display: "none" });
+            }
+        }
+    </script>
+
+{% endblock  %}
+
+
+
+
+
+
+
+
+

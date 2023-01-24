@@ -1,0 +1,158 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% comment %} template tags {% endcomment %}
+{% load product_templates_tags %}
+
+{% block content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Payment Details</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Payment</a></li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                
+                            </div><!--end col-->  
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <!--customer details row-->
+            <div class="row">
+                <div class="col-12">
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 align-self-center">
+                                    <div class="single-pro-detail">
+                                        
+                                                                                        
+                                        <h6 class="text-muted font-13">Order ID : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order_id}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Amount :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.amount}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Currency :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.currency|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Language :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.language|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Payment Type :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.payment_type|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Card Name :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.card_name|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Order Status:</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.order_status|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Transaction ID :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.transaction_id|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Transaction Signature :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.transaction_signature|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Bank Reference No :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.bank_ref_no|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Bank ID :</h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.bank_id|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Status Message : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.status_message|default:"-"}}</p>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 align-self-center">
+                                    <div class="single-pro-detail">
+                                        
+                                                                                        
+                                        <h6 class="text-muted font-13">Payuid : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.payuid|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Mihpayuid : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.mihpayuid|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Payuid : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.payuid|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Payment Order ID : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.payment_order_id|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Description : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.description|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Payment Channel : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.payment_channel|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Payment Date & Time : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.payment_datetime|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Response Code : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.response_code|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Response Message : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.response_message|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Error Description : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.error_desc|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Card Masked : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.cardmasked|default:"-"}}</p>
+                                        </ul>
+                                        <h6 class="text-muted font-13">Failure Message : </h6> 
+                                        <ul class="list-unstyled pro-features border-0">
+                                            <p>{{instance.failure_message|default:"-"}}</p>
+                                        </ul>
+                                    </div>
+                                </div>       
+                            </div><!--end row-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                    
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+        

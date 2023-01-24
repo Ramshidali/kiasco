@@ -1,0 +1,30 @@
+{% load main_template_tags %}
+{% if instances.has_other_pages %}
+
+
+<div class="page-number">
+    {% if instances.has_previous %}
+    <span
+      ><a href="#"><i class="fas fa-angle-left"></i></a
+    ></span>
+    {% endif %}
+    
+    
+    {% for num in instances.paginator.page_range %}
+        {% if instances.number == num %}
+          <span><a href="javascript:;" class="active">{{ num }}</a></span>
+        {% elif num > instances.number|add:'-3' and num < instances.number|add:'3' %} 
+        <span><a href="?{% url_replace page=num %}" class="">{{ num }}</a></span>
+        {% endif %}
+        {% endfor %}
+
+        {% if instances.has_next %}
+    <span
+      ><a href="?{% url_replace page=instances.next_page_number %}"><i class="fas fa-angle-right"></i></a
+    ></span>
+    {% endif %}
+
+  </div>
+
+
+  {% endif %}

@@ -1,0 +1,13 @@
+[settings]
+
+DEBUG = True
+SERVER = True
+
+ALLOWED_HOSTS = .kiasco.talrop.works, .www.kiasco.talrop.works, .64.227.170.42,
+
+; Postgresql details
+DB_NAME = kiasco_db
+DB_USER = kiasco_db
+DB_PASSWORD = tP!*5TEx2@6!Dap
+DB_HOST = localhost
+DB_PORT = 5432

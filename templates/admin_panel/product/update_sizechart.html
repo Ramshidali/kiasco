@@ -1,0 +1,204 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">{{page_title}}</h4>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!-- end page-title-box -->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Create</h4>
+                        </div>
+                        <!--end card-header-->
+                        <div class="card-body">
+                            <form action="." method="POST" enctype="multipart/form-data" class="ajax redirect">
+                                {% csrf_token %}
+                                
+                                {% for f in form %}
+                                <div class="form-group">
+                                    <label for="projectName" id="id_label_{{f.name}}">{{f.label}} : </label>
+                                    {{f}}
+                                </div><!--end form-group-->
+                                {%endfor%}
+
+                                <input type="hidden" name="pro_type" id="product_type" value="{{type}}">
+                                <button type="submit" id="submit" class="btn btn-soft-primary btn-sm waves-effect waves-light" id="sa-mixin">Submit</button>
+                                <button type="button" onclick="window.history.back()" class="btn btn-soft-danger btn-sm">Cancel</button>
+                            </form>  <!--end form-->
+                        </div>
+                        <!--end card-body-->
+                    </div>
+                    <!--end card-->
+                </div> <!-- end col -->
+            </div>
+        </div><!-- container -->
+
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+
+{% block static %}
+    {% load static %}
+    {{form.media}}
+    <style>
+        .form-control {
+            height: calc(2.5em + .75rem + 2px);
+        }
+        .select2-container--default{
+            width: 100%;
+        }
+        .select2-container .select2-selection--single {
+            height: calc(2.5em + .75rem + 2px);
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #e3ebf6;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 32px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            margin-top: 8px;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            color: #000;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #e3ebf6;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border: solid rgba(23,97,253,0.5) 1px;
+        }
+    
+        .form-control {
+            height: calc(2.8em + .75rem + 2px);
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            color: #000;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #e3ebf6;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border: solid rgba(23,97,253,0.5) 1px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            value = $("#product_type").val()    
+            console.log(value);
+        
+            if (value == "shirt") {
+                console.log("shirt")
+                $("#id_label_brandsize").css({display: "",});
+                $("#id_brandsize").css({display: "",});
+                $("#id_label_size").css({display: "",});
+                $("#id_size").css({display: "",});
+                $("#id_label_chest").css({display: "",});
+                $("#id_chest").css({display: "",});
+                $("#id_label_front_length").css({display: "",});
+                $("#id_front_length").css({display: "",});
+                $("#id_label_accross_sholder").css({display: "",});
+                $("#id_accross_sholder").css({display: "",});
+                $("#id_label_waist").css({display: "",});
+                $("#id_waist").css({display: "",});
+                $("#id_label_sleeve_length").css({display: "",});
+                $("#id_sleeve_length").css({display: "",});
+                $("#id_label_outseam").css({display: "none",});
+                $("#id_outseam").css({display: "none",});
+                $("#id_label_inseam").css({display: "none",});
+                $("#id_inseam").css({display: "none",});
+                $("#id_label_bottom_hem").css({display: "none",});
+                $("#id_bottom_hem").css({display: "none",});
+                $("#id_label_rise").css({display: "none",});
+                $("#id_rise").css({display: "none",});
+                $("#id_label_thigh").css({display: "none",});
+                $("#id_thigh").css({display: "none",});
+            }
+            if (value == "pant") {
+                console.log("pant")
+        
+                $("#id_label_brandsize").css({display: "",});
+                $("#id_brandsize").css({display: "",});
+                $("#id_label_size").css({display: "",});
+                $("#id_size").css({display: "",});
+                $("#id_label_waist").css({display: "",});
+                $("#id_waist").css({display: "",});
+                $("#id_label_outseam").css({display: "",});
+                $("#id_outseam").css({display: "",});
+                $("#id_label_inseam").css({display: "",});
+                $("#id_inseam").css({display: "",});
+                $("#id_label_bottom_hem").css({display: "",});
+                $("#id_bottom_hem").css({display: "",});
+                $("#id_label_rise").css({display: "",});
+                $("#id_rise").css({display: "",});
+                $("#id_label_thigh").css({display: "",});
+                $("#id_thigh").css({display: "",});
+                $("#id_label_chest").css({display: "none",});
+                $("#id_chest").css({display: "none",});
+                $("#id_label_front_length").css({display: "none",});
+                $("#id_front_length").css({display: "none",});
+                $("#id_label_sleeve_length").css({display: "none",});
+                $("#id_sleeve_length").css({display: "none",});
+                $("#id_label_accross_sholder").css({display: "none",});
+                $("#id_accross_sholder").css({display: "none",});
+            }
+            if (value == "boxer") {
+                console.log("boxer")
+        
+                $("#id_label_brandsize").css({display: "",});
+                $("#id_brandsize").css({display: "",});
+                $("#id_label_size").css({display: "",});
+                $("#id_size").css({display: "",});
+                $("#id_label_waist").css({display: "",});
+                $("#id_waist").css({display: "",});
+                $("#id_label_outseam").css({display: "",});
+                $("#id_outseam").css({display: "",});
+                $("#id_label_inseam").css({display: "",});
+                $("#id_inseam").css({display: "",});
+                $("#id_label_rise").css({display: "",});
+                $("#id_rise").css({display: "",});
+                $("#id_label_thigh").css({display: "",});
+                $("#id_thigh").css({display: "",});
+                $("#id_label_chest").css({display: "none",});
+                $("#id_chest").css({display: "none",});
+                $("#id_label_bottom_hem").css({display: "none",});
+                $("#id_bottom_hem").css({display: "none",});
+                $("#id_label_front_length").css({display: "none",});
+                $("#id_front_length").css({display: "none",});
+                $("#id_label_sleeve_length").css({display: "none",});
+                $("#id_sleeve_length").css({display: "none",});
+                $("#id_label_accross_sholder").css({display: "none",});
+                $("#id_accross_sholder").css({display: "none",});
+            }
+        });
+    </script>
+
+{% endblock  %}
+
+
+
+
+
+
+
+
+

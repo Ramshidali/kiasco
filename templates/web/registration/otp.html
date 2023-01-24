@@ -1,0 +1,87 @@
+{% load static %}
+<html>
+<body>
+  <!--phone number otp-->
+    <div class="mobile-otp">
+        <div class="wrapper-box">
+    
+          <a href="" id="back-btn"  class="btn  waves-effect waves-light"><img src="{% static 'web/images/close.svg' %}" alt="image"></a href="{% url 'web:index' %}">
+          <div class="logo">
+            <img src="{% static 'web/images/Kiasco_Logo_white.png' %}" alt="Logo" />
+          </div>
+          <p>Verify with OTP</p>
+          <div class="down-data">
+            <span
+              >sent to +91 <small class="number">9000000000</small> 
+            </span>
+            <div class="otp-btns">
+              <input type="text" class="inputs"  maxlength="1" id="otp_one" name="otp_one" required />
+              <input type="text" class="inputs" maxlength="1" id="otp_two" name="otp_two" required />
+              <input type="text" class="inputs" maxlength="1" id="otp_three" name="otp_three" required />
+              <input type="text" class="inputs" maxlength="1" id="otp_four" name="otp_four" required />
+              <p class="required_text" id="required_text_otp" style="display: none; color: red; font-size: 10px; text-align: left; padding-top: 10px;">* Enter otp<p>
+            </div>
+              
+            <span class="resend">Resend OTP in 
+                <span id="some_div"></span>
+                <a href="" class="resend_button button">Resend OTP</a>
+            </span>
+          </div>
+          <div class="button">
+            <input type="submit" value="Continue" data-url="{% url 'web:verify_otp' %}" id="otp_validation" />
+          </div>
+        </div>
+    </div>
+
+
+
+    <!--email otp validations-->
+  <div class="email-otp">
+    <div class="wrapper-box">
+
+      <a href="" id="back-btn"  class="btn  waves-effect waves-light"><img src="{% static 'web/images/close.svg' %}" alt="image"></a href="{% url 'web:index' %}">
+      <div class="logo">
+        <img src="{% static 'web/images/Kiasco_Logo_white.png' %}" alt="Logo" />
+      </div>
+      <p>Verify with OTP</p>
+      <div class="down-data">
+        <span
+          >sent to <small class="number">9000000000</small> 
+        </span>
+        <div class="otp-btns">
+          <input type="text" class="inputs"  maxlength="1" id="frgt_otp_one" name="frgt_otp_one" required />
+          <input type="text" class="inputs" maxlength="1" id="frgt_otp_two" name="frgt_otp_two" required />
+          <input type="text" class="inputs" maxlength="1" id="frgt_otp_three" name="frgt_otp_three" required />
+          <input type="text" class="inputs" maxlength="1" id="frgt_otp_four" name="frgt_otp_four" required />
+          <p class="required_text" id="required_text_frgt_otp" style="display: none; color: red; font-size: 10px; text-align: left; padding-top: 10px;">* Enter otp<p>
+        </div>
+          
+        <span class="resend">Resend OTP in 
+            <span id="some_div"></span>
+            <a href="" class="resend_button button">Resend OTP</a>
+        </span>
+      </div>
+      <div class="button">
+        <input type="submit" value="Continue" data-url="{% url 'web:verify_email_otp' %}" id="email_otp_validation" />
+      </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>
+<style>
+    .resend .resend_button{
+        color: red;
+        display: none;
+    }
+</style>
+
+<script>
+
+
+    
+</script>

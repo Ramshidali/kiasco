@@ -1,0 +1,99 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">{{page_title}}</h4>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!-- end page-title-box -->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- <div class="row">
+                <div>
+                    {% for state in states %}
+                    <div>
+                        <h6>{{state.name}}</h6>
+                        {% for location in state.locations %}
+                        <p>{{location.name}}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                </div>
+                
+
+                <br>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="ajax redirect" enctype="multipart/form-data" method="post" action="{{url}}">
+                                {% csrf_token %}
+                                <h3>Select Delivery Locations</h3>
+                                <div class="card-body card card-padding">
+                                    <div class="row permissions">
+                                        {% if states %}
+                                            {% for state in states %}
+                                                {% if state.locations %}
+                                                    <div class="custom-control custom-switch switch-primary check_all_box col-12">
+                                                        <input class="custom-control-input list1" id="pk_id_{{state.pk}}" type="checkbox">
+                                                        <label class="custom-control-label ts-helper" for="pk_id_{{state.pk}}">&nbsp;
+                                                        </label>
+                                                            <label class="toggle-permission ts-label mb-3">
+                                                                <strong>{{state.name}}</strong>
+                                                            </label>
+                    
+                                                        <div class="state-cards flex-wrap mb-4" style="padding-left: 45px; display: none;">
+                                                            {% for location in state.locations %}
+                                                            <div class="col-3 mb-2 form-check1">
+                                                                {% if is_edit %}
+                                                                {% if location.pk in array_p %}
+                                                                <input type="checkbox" class="custom-control-input" checked id="location-{{location.pk}}" name="location"
+                                                                    value="{{location.pk}}" />
+                                                                {% else %}
+                                                                <input type="checkbox" id="location-{{location.pk}}" class="custom-control-input ok"
+                                                                    name="location" value="{{location.pk}}" />
+                                                                {% endif %}
+                                                                {% else %}
+                                                                <input class="custom-control-input" type="checkbox" id="location-{{location.pk}}" name="location"
+                                                                    value="{{location.pk}}" />
+                                                                {% endif %}
+                                                                <label class="ts-helper" for="ts1">&nbsp;</label>
+                                                                <label for="location-{{location.pk}}" class="custom-control-label ts-label mb-3">
+                                                                    <span>{{location.name}}</span>
+                                                                </label>
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- container -->
+
+    </div>
+    <!-- end page content -->
+{% endblock content %}
+
+
+   

@@ -1,0 +1,26 @@
+{% comment %} {% load static %}
+<!-- login -->
+
+    <div class="login-box">
+        <a href="" id="back-btn"  class="btn  waves-effect waves-light"><img src="{% static 'web/images/close.svg' %}" alt="image"></a href="{% url 'web:index' %}">
+        <div class="logo">
+            <img src="{% static 'web/images/Kiasco_Logo_white.png' %}" alt="Logo" />
+        </div>
+            
+            <div class="email-box"><label for="email">Email Address</label>
+                <input type="email" name="email" id="login_email" placeholder="Enter Email" required/>
+                <p class="required_text" id="required_text_email" style="display: none; color: red; font-size: 10px; text-align: left;">*required<p>
+                <p id="invalid_email" style="display: none; color: red; font-size: 10px; text-align: left;">Invalid Email Id<p>
+            </div>
+          
+            <div class="password-box">
+                <label for="passwrod">Password</label>
+                <input type="password" name="password" id="login_password" placeholder="Enter Password" required/>
+                <p class="required_text" id="required_text_password" style="display: none; color: red; font-size: 10px; text-align: left;">*required<p>
+            </div>
+
+            <button class="login-btn" type="submit" data-url="{% url 'web:customer_signin' %}" id="customer_login">Log In</button>
+            <a href="javascript:void(0)" class="forgot" data-url="{% url 'web:check_user' %}" >Forgot Password</a>
+        
+        <p>Don't have an account ? <a href="javascript:void(0)">Register</a></p>
+    </div> {% endcomment %}

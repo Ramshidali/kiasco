@@ -1,0 +1,66 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% block content %}
+
+    <!-- header-end -->
+    <section id="shop-product">
+      <div class="wrapper">
+        <div class="head">
+          <h4>{{category_name}}</h4>
+          <div class="selector">
+            <p>Sort By:</p>
+            <select name="#" id="filter">
+              <option value="Recomended">Recomended</option>
+              <option value="Recomended">Recomended</option>
+              <option value="Recomended">Recomended</option>
+            </select>
+          </div>
+        </div>
+        <ul>
+          {%for product in instance%}
+          <li>
+            <a href="{% url 'web:product_view' pk=product.pk %}">
+              <div class="img-box">
+                <img src="{{product.featured_image.url}}" alt="{{product.name}}" />
+              </div>
+              <div class="text-box">
+                <div class="name">
+                  <h6>{{product.name}}</h6>
+                  <img src="{%static 'web/images/wishlist-grey-icon.svg' %}" alt="Whishlist" />
+                </div>
+                <div class="price">
+                  {% comment %} {% get_product_price product.pk as price %}
+                    {% if price.is_offer %}
+                        <p>₹ {{price.price}}</p>
+                        <small>₹ {{price.actual_rate}}</small>
+                        <span>({{price.offer_percentage}}% Off)</span>
+                    {% else %} {% endcomment %}
+                        <p>₹ {{product.current_price|floatformat}}</p>
+                        <small>₹ {{product.mrp|floatformat}}</small>
+                    {% comment %} {% endif %} {% endcomment %}
+                        
+                    </div>
+                </div>
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+
+        </ul>
+
+        <div class="page-number">
+          <span
+            ><a href="#"><i class="fas fa-angle-left"></i></a
+          ></span>
+          <span><a href="#" class="active">1</a></span>
+          <span><a href="#">2</a></span>
+          <span><a href="#">3</a></span>
+          <span
+            ><a href="#"><i class="fas fa-angle-right"></i></a
+          ></span>
+        </div>
+      </div>
+    </section>
+    
+{% endblock content %}

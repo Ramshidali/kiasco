@@ -1,0 +1,129 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="spotlight" class="all-order">
+      <div class="wrapper">
+        
+
+      {% include 'web/includes/profile_nav.html'%}
+
+
+        <div class="edit-page">
+          <div class="edit-container">
+            <div class="head">
+              <h4>Edit Details</h4>
+            </div>
+            <div class="edit-content">
+              <div class="name">
+                <div class="text-box">
+                  <h5>Mobile Number*</h5>
+                  <span class="profile-text">+91 <input type="text" id="profile-phone" value="{{profile_instance.phone}}" data-phone="{{profile_instance.phone}}" /></span>
+                </div>
+                <p class="required_text" id="required_text_phone" style="display: none; color: red; font-size: 10px; text-align: left; padding-top: 10px;">*required<p>
+                <a href="javascript:void(0)" class="button" id="change-phone" data-url="{% url 'web:generate_phone_otp' %}">change</a>
+              </div>
+              <fieldset>
+                <legend>Full Name</legend>
+                <span class="profile-text"><input type="text" id="profile-name" value="{{profile_instance.name}}" data-value="" /></span>
+              </fieldset>
+              <fieldset>
+                <legend>Email</legend>
+                <span class="profile-text"><input type="text" id="profile-email" value="{{profile_instance.email}}" data-value="" /></span>
+              </fieldset>
+              <div class="gender-box">
+                <a href="javascript:void(0)" class="gender{% if profile_instance.gender == '10' %} active {% endif %}" data-gender="10"><i class="fas fa-check"></i> male</a>
+                <hr />
+                <a href="javascript:void(0)" class="gender{% if profile_instance.gender == '20' %} active {% endif %}" data-gender="20" ><i class="fas fa-check"></i> female</a
+                >
+              </div>
+            </div>
+            <a href="javascript:void(0)" class="save-button profile-save-button" data-gender="" data-url="{% url 'web:change_profile_details' %}">save detials</a>
+            <a href="javascript:void(0)" class="password-change" id="password-change-button" data-url="{% url 'web:change_password' %}">change password</a>
+            {% comment %} <a href="#" class="delete-account">deactivate account</a> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- otp-verification -->
+    <section class="otp-verification container-otp">
+      <div class="head">
+        <h4>verify with OTP</h4>
+        <span class="close"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="content-box">
+        <div class="number-box">
+          <span>sent to +91 </span> <span id="sent-phone-number"></span>
+          <div class="otp-box">
+            <input type="tel" maxlength="1" class="otp"  id="phone-otp-one"/>
+            <input type="tel" maxlength="1" class="otp" id="phone-otp-two"/>
+            <input type="tel" maxlength="1" class="otp" id="phone-otp-three"/>
+            <input type="tel" maxlength="1" class="otp" id="phone-otp-four"/>
+          </div>
+          <small>Resend oTP in 00:26 s </small>
+        </div>
+      </div>
+      <a href="#" id="phone-varify-button" class="button" data-url="{% url 'web:verify_otp' %}" data-change_url="{% url 'web:change_phone_number' %}">submit</a>
+    </section>
+
+    <!-- number-update -->
+    <section class="number-update container-otp">
+      <div class="head">
+        <h4>update mobile number</h4>
+        <span class="close"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="content-box">
+        <div class="number-box">
+          <form id="login" onsubmit="process(event)">
+            <input id="phone" type="tel" name="phone" />
+          </form>
+        </div>
+      </div>
+      <a href="#" class="button">submit</a>
+    </section>
+
+    <!-- change-password -->
+    <section class="change-password">
+      <div class="head">
+        <h4>change password</h4>
+        <span class="close"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="content-box">
+        {% comment %} <form action="#"> {% endcomment %}
+          <input type="password" name="old" placeholder="Old password*" id="old-password"/>
+          <p class="required" id="old_password_text"></p>
+          <input type="password" name="new" placeholder="New password*" id="new-password" />
+          
+          <p class="required" id="new_password_text"></p>
+          
+          <div class="suggest">
+            
+            <span id="charecter">8 character</span>
+            <span id="special">1 special</span>
+            <span id="upper">1 uppercase</span>
+            <span id="numeric">1 numeric</span>
+            
+          </div>
+
+          <input type="password" name="confirm" placeholder="confirm new password*" id="c-password" />
+          <p class="required" id="c_password_text"></p>
+        {% comment %} </form> {% endcomment %}
+      </div>
+      <a href="javascript:void(0)" class="button" id="password-change-submit-button" data-url="{% url 'web:change_password' %}">update</a>
+      <a href="javascript:void(0)" class="cancel">cancel</a>
+    </section>
+
+     <!-- success-tick -->
+     <section class="success">
+      <div class="head closer-head">
+        <span class="close"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="tick-box">
+        <h4><img src="{% static 'web/images/verification-success.png' %}" alt="Success" /></h4>
+        <h3 id="title"></h3>
+        <p id="profile-sweet-message"></p>
+      </div>
+    </section>
+
+{% endblock content %}

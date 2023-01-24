@@ -1,0 +1,73 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="about">
+    <div class="wrapper">
+        <div class="a-spotlight">
+            <div class="left-box">
+                <h3>About Kiasco</h3>
+                <p>{{description.description}}</p>
+            </div>
+            <div class="right-box">
+                <img src="{% static 'web/images/about-img.png' %}" alt="Image" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="gallery">
+    <div class="wrapper">
+        <h3>Image Gallery</h3>
+        <div class="gal-main" id="gallery-slider">
+            {% for image in gallery %}
+            <div class="card">
+                <img src="{{image.image.url}}" alt="Image" />
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<div id="say">
+    <div class="wrapper">
+        <h3>What customers Says...</h3>
+        <div class="say-main" id="say-slider">
+            {% for review in customer_reviews %}
+            <div class="card-s">
+                <div class="left-side">
+                    <img src="{{review.image.url}}" alt="">
+                </div>
+                <div class="right-side">
+                    <img src="{% static 'web/images/“.svg' %}" alt="">
+                    <h4>{{review.name}}</h4>
+                    <b>{{review.designation}}</b>
+                    <p>{{review.description}}</p>
+                    <div class="review-s">
+                        {% for star in 0|center:review.rating %}
+                        <img src="{% static 'web/images/Star 9.svg' %}" alt="">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+    <!-- <div id="privacy">
+        <div class="wrapper">
+            <h3 class="center">ABOUT US</h3>
+
+            <h3>Greetings from Kiasco</h3>
+            <div class="content">
+                <p>Kiasco is a professional-designed e-commerce platform.with a sleek design. Only the most dependable and pleasant items will be available.
+                    We're committed to providing you with the finest in eCommerce, with an emphasis on online purchasing and trust. Our goal is to transform
+                    our love of eCommerce into a successful online business. We hope you enjoy your shopping with us as much as we love providing it for you.</p>
+
+                <p>Thank you for visiting our site</p>
+            </div>
+        </div>
+    </div> -->
+{% endblock %}

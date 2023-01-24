@@ -1,0 +1,79 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="spotlight">
+      <div class="wrapper">
+        
+        {% include 'web/includes/profile_nav.html'%}
+
+        <div class="order-detials">
+          <div class="order-item">
+            <div class="item-top-box">
+              <h5>Order ID: #K1A1245</h5>
+              <h4>
+                <a href="#">Help <i class="fas fa-headset"></i></a>
+              </h4>
+            </div>
+            <div class="selected-item">
+              <a href="#">
+                <div class="preview-box">
+                  <img src="../images/american-eagle2.png" alt="" />
+                </div>
+                <div class="item-content">
+                  <h4>american eagle</h4>
+                  <span class="category">inner fit, dress</span>
+                  <span class="size">Size : M</span>
+                  <span class="price">₹ 2900</span>
+                  <p>return policies ended on nov 20,jan 2020</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!--ordered-item-->
+          <div class="order-status">
+            <ul class="order-track">
+              <li class="status-done">
+                <h4>orderd</h4>
+                <i class="fas fa-circle"></i>
+                <p>tue,16th nov</p>
+              </li>
+              <li class="status-todo">
+                <h4>shipped</h4>
+                <i class="fas fa-circle"></i>
+                <p>tue,16th nov</p>
+              </li>
+              <li class="status-todo">
+                <h4>out for delivery</h4>
+                <i class="fas fa-circle"></i>
+                <p class="hiden">tue,16th nov</p>
+              </li>
+              <li class="status-todo">
+                <h4>delivered</h4>
+                <i class="fas fa-circle"></i>
+                <p class="expected">expected by mon 31st</p>
+              </li>
+            </ul>
+            <h3>
+              <a href="#">cancel order <i class="fas fa-times-circle"></i></a>
+            </h3>
+          </div>
+          <!--ordered-tracking-->
+          <div class="bottom-box">
+            <div class="address-box">
+              <h3>delivery address</h3>
+              <h5>antonia simran</h5>
+              <p>simran house delhli,KidZania sector-18 noida (delhi-NCR)</p>
+              <span>pin : 456789, India</span>
+
+              <small>mobile : 9567849900</small>
+            </div>
+            <div class="payment">
+              <h3>paid by using: UPI</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- section-send -->
+    {% endblock content %}

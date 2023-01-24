@@ -1,0 +1,100 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% load web_templates_tags %}
+{% block content %}
+
+    <!-- header-end -->
+  <div id="cart-detials">
+    <div class="wrapper">
+        {% if instances %}
+            <div class="head-box">
+                <div class="left-box">
+                    <h4>products</h4>
+                </div>
+                <div class="right-box">
+                    <h5>price</h5>
+                    <h5>qty</h5>
+                    <h5>unit price</h5>
+                </div>
+            </div>
+        
+            <ul class="cart-list">
+                {% for pro_varient in instances %}
+                <li>
+                <div class="left-content">
+                    <div class="img-box">
+                    <img src="{{pro_varient.product_varient.product.featured_image.url}}" alt="Product" />
+                    </div>
+                    <div class="cart-text">
+                    <h6>{{pro_varient.product_varient.product.name}}</h6>
+                    <span>{{pro_varient.product_varient.product.category.name}}</span>
+                    <a href="#"  class="remove redirect remove-cart" data-varient="{{pro_varient.product_varient.pk}}" data-url="{% url 'web:remove_from_cart' %}">remove</a>
+                    </div>
+                </div>
+                <div class="right-content">
+                    <span class="price">₹ {{pro_varient.product_varient.product.current_price}}</span>
+                    <input type="hidden" class="price-hide" value="{{pro_varient.product_varient.product.current_price}}">
+
+                    <div class="quantity-counter">
+                    <button id="{{ pro_varient.product_varient.pk}}counter-decrement" class="decrement qty-btn" data-pk="{{ pro_varient.product_varient.pk}}" onclick="counter_decrement('{{ pro_varient.product_varient.pk}}')" href="{% url 'web:decrement_cart' %}" {% if price.is_offer %} data-price="{{price.price|floatformat}}" {% else %} data-price="{{pro_varient.product_varient.product.price|floatformat}}" {% endif %} >-</button>
+                    <input id="{{ pro_varient.product_varient.pk}}counter-value" data-id="{{ pro_varient.product_varient.pk}}" empty="{% url 'web:remove_from_cart' %}" class="value" type="number" title="Qty" value="{% get_cart_count pro_varient.product_varient.pk request.user %}" disabled>
+                    <button id="{{ pro_varient.product_varient.pk}}counter-increment" class="increment qty-btn" data-pk="{{ pro_varient.product_varient.pk }}" onclick="counter_increment('{{ pro_varient.product_varient.pk}}')" href="{% url 'web:increment_cart' %}" {% if price.is_offer %} data-price="{{price.price|floatformat}}" {% else %} data-price="{{pro_varient.product_varient.product.price|floatformat}}" {% endif %}>+</button>
+                    </div>
+
+                    
+                    <input type="hidden" class="varient_pk" data-varient="{{pro_varient.product_varient.pk}}">
+                    
+                    <span class="cart-total-price {{pro_varient.product_varient.pk}}unit_price">₹ {{pro_varient.unit_price}}
+                    </span>
+                  </div>
+                  <p id="{{ pro_varient.product_varient.pk}}qty_requirements" style="color: red; display: none;"></p>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="empty-cards">
+            <div class="empty-box">
+                <img src="{% static 'web/images/empty-cart.png' %}" alt="Image" />
+                <h4>Your Cart is empty</h4>
+                <a href="{% url 'web:shop' %}">Hey your cart is empty add products here.</a>
+            </div>
+            </div>
+        {% endif %}
+        {% if instances %}
+            <div class="bill-box">
+          <div class="content-box">
+            <div class="pay-box">
+              <h3>total price Detials ( <span>{{total_items}} items</span> )</h3>
+              {% comment %} <ul>
+                <li>
+                  <span>total MRP</span>
+                  <small>₹ </small>
+                </li>
+                <li>
+                  <span>discount on MRP</span>
+                  <small class="green">₹ 98</small>
+                </li> 
+
+                <li>
+                  <span class="red">shipp</span>
+                  <small>₹ 00</small>
+                </li>
+
+              </ul> {% endcomment %}
+            </div>
+            <hr />
+            <div class="amount-box">
+              <div class="price">
+                <h5>total amount</h5>
+                <small id="total_price">₹ {{total}}</small>
+              </div>
+              <a href="{% url 'web:view_address' %}?redirect_to=cart_address" class="button">place order</a>
+            </div>
+          </div>
+            </div>
+      {% endif %}
+    </div>
+  </div>
+  <!-- cotent-end -->
+{% endblock content %}

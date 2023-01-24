@@ -1,0 +1,85 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load product_templates_tags %}
+{% block content %}
+    <section id="headcategory" class="list-box">
+      <div class="wrapper">
+        <div class="head">
+          <h3>BROWSE BY CATEGORY</h3>
+        </div>
+      </div>
+    </section>
+    <!-- end-category -->
+
+    <section id="category" class="list-box">
+      <div class="wrapper">
+
+        {%for category in instances%}
+        {%if category.get_products%}
+        <div class="category-main">
+          
+          <div class="name-box" id="jersey">
+            <h4>{{category.name}}</h4>
+          </div>
+          
+          <ul class="content-box">
+            {%for product in category.get_products%}
+            <li>
+              <a href="{% url 'web:product_view' pk=product.pk %}">
+                <div class="img-box">
+                  {%if product.featured_image%}
+                  <img src="{{product.featured_image.url}}" alt="{{product.name}}" />
+                  {%endif%}
+                </div>
+              </a>
+              <div class="text-box">
+                <div class="name">
+                  <h6>{{product.name}}</h6>
+                  <span><i class="animate {% if product.pk in wishlist_items %}fa wishlist-fill {% else %} far {% endif %} fa-heart wishlist_icon {% if request.user.is_authenticated %} add-to-wishlist {% else %} signin {% endif %}" data-url="{% url 'web:add_to_wishlist' %}" data-product={{product.pk}} ></i></span>
+                </div>
+                 <div class="price">
+                {% comment %}  {% get_product_price product.pk as price %}
+                    {% if price.is_offer %}
+                    <span>₹ {{price.price}}</span>
+                    <small>₹ {{price.actual_rate}}</small>
+                  {% else %} {% endcomment %}
+                    <span>₹ {{product.current_price|floatformat}}</span>
+                    <small>₹ {{product.mrp|floatformat}}</small>
+                </div>
+              </div>
+            </li>
+            {%endfor%}
+  
+          </ul>
+
+        </div>
+         
+        <div class="more-button">
+          <a href="{% url 'web:show_all_product' pk=category.pk %}">see all products</a>
+          <hr />
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    <!-- category product-end -->
+
+    <section id="new-collection">
+      <div class="wrapper">
+        <div class="main-box">
+          <div class="image-box">
+            {%if banner_instance%}
+            {%for banners in banner_instance%}
+            <a href="{% url 'web:product_view' pk=banners.product.pk %}"><img src="{{banners.image.url}}" alt="Banner" /></a>
+            {%endfor%}
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock content %}
+
+
+
+
